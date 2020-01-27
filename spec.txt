@@ -1,0 +1,175 @@
+Tarefas
+
+Pessoal
+Nós estamos elaborando algumas atividades
+Vocês irão criar microserviços com Spring boot
+
+A princípio leiam estes tutoriais
+
+https://spring.io/guides/gs/rest-service/,
+
+https://www.baeldung.com/building-a-restful-web-service-with-spring-and-java-based-configuration
+
+https://www.baeldung.com/entity-to-and-from-dto-for-a-java-spring-application
+
+https://www.baeldung.com/spring-request-response-body
+
+ 
+
+Criem um projeto maven com spring boot chamado “users”
+
+                Este microserviço deve conter inicialmente os seguintes endpoints:
+
+               POST /users (UserCreateRestController)
+
+Request:
+
+{
+
+  "userName":  "trillian",
+
+  "firstName": "Tricia",
+
+  "lastName":  "McMillan",
+
+  "birthDate": "1994-01-01",
+
+  "email": "tricia42@dolphins.com"
+
+}
+
+Response:
+
+{
+
+  "id":  "1"
+
+}
+
+ 
+
+                GET /users/${userId} (UserCreateRestController)
+
+  Response:
+
+{
+
+  "id":  "1",
+
+  "userName":  "trillian",
+
+  "firstName": "Tricia",
+
+  "lastName":  "McMillan",
+
+  "birthDate": "1994-01-01",
+
+  "email": "tricia42@dolphins.com"
+
+}
+
+                 GET /users (UserList) (UserListRestController)
+
+                                Response:
+
+ 
+
+[{
+
+  "id":  "1",
+
+  "userName":  "trillian",
+
+  "firstName": "Tricia",
+
+  "lastName":  "McMillan",
+
+  "birthDate": "1994-01-01",
+
+  "email": "tricia42@dolphins.com"
+
+}, {
+
+  "id":  "2",
+
+  "userName":  "trillian2",
+
+  "firstName": "Tricia2",
+
+  "lastName":  "McMillan2",
+
+  "birthDate": "1994-01-01",
+
+  "email": "tricia42_2@dolphins.com"
+
+}]
+
+ 
+
+                    UPDATE /users/${userId}  (UserUpdateRestController)
+
+Request:
+
+{
+
+  "email": "tricia42@earth.com"
+
+}
+
+Response:
+
+{
+
+  "id":  "1",
+
+  "userName":  "trillian",
+
+  "firstName": "Tricia",
+
+  "lastName":  "McMillan",
+
+  "birthDate": "1994-01-01",
+
+  "email": "tricia42@earth.com "
+
+}
+
+ 
+
+A versão inicial não terá persistência, o retorno deve ser “hardcoded”                    
+
+ 
+
+E em seguida vamos configurar o swagger para gerar a documentação da API
+
+https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api
+
+ 
+
+assim que finalizado criem um repositório no github para que possamos conferir as implementações.
+
+ 
+
+será que nossos coleguinhas irão dominar essa galáxia, não percam os próximos episódios!
+
+ 
+
+Thanks,
+
+ 
+
+Tiago Mazzucco
+
+Senior Software Engineer
+
+ 
+
+Mastercard
+
+139, Joao Marchesini | Curitiba, Brazil
+
+tel +554130997737
+
+
+
+ 
