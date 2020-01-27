@@ -2,13 +2,6 @@ package com.wipro.bartenders.users.entity;
 
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Data
 public class User {
@@ -27,6 +20,14 @@ public class User {
 
     public User(long id, String userName, String firstName, String lastName, String birthDate, String email) {
         this.id = id;
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.email = email;
+    }
+
+    public User(String userName, String firstName, String lastName, String birthDate, String email) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;

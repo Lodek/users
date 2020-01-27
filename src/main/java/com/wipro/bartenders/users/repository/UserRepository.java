@@ -2,10 +2,8 @@ package com.wipro.bartenders.users.repository;
 
 import com.wipro.bartenders.users.entity.User;
 import lombok.Data;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
