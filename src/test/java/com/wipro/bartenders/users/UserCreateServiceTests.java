@@ -15,6 +15,8 @@ public class UserCreateServiceTests {
 
     User noId;
     String response;
+    private User userOne;
+    private User fetchedUser;
 
 
     @Test
@@ -39,5 +41,26 @@ public class UserCreateServiceTests {
         return this;
     }
 
+    @Test
+    public void userGetShouldReturnUserWithId1(){
+        givenUserWithId(1)
+                .whenServiceFetchesUserById(1)
+                .thenResponseShouldBeAUserWithId(1);
+    }
+
+    private UserCreateServiceTests thenResponseShouldBeAUserWithId(int id) {
+        Assert.isTrue(fetchedUser.getId() == id);
+        return this;
+    }
+
+    private UserCreateServiceTests whenServiceFetchesUserById(long id) {
+        fetchedUser = userCreateService.getUser(id);
+        return this;
+    }
+
+    private UserCreateServiceTests givenUserWithId(long id) {
+        userOne = new User( id, "trillian", "Tricia", "McMillan", "1994-01-01", "tricia42@dolphins.com");
+        return this;
+    }
 
 }
