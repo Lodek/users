@@ -12,6 +12,8 @@ public class UserUpdateService {
     private UserRepository userRepository;
 
     public User updateUser(Long id, User newUser) {
+        //Breaks encapsulation as well?
+        //Should use UserCreateService that has a getUser method?
         User storedUser = userRepository.getUsers().get(id.intValue());
         return storedUser.update(newUser);
     }

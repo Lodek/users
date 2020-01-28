@@ -35,6 +35,10 @@ public class User {
         this.email = email;
     }
 
+    public User(){
+
+    }
+
     public User update(User newUser) {
         User clone = null;
         try {
