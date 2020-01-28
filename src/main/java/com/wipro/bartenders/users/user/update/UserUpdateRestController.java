@@ -1,7 +1,6 @@
-package com.wipro.bartenders.users.controller;
+package com.wipro.bartenders.users.user.update;
 
-import com.wipro.bartenders.users.entity.User;
-import com.wipro.bartenders.users.service.UserUpdateService;
+import com.wipro.bartenders.users.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

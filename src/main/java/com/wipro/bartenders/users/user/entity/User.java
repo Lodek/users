@@ -1,4 +1,4 @@
-package com.wipro.bartenders.users.entity;
+package com.wipro.bartenders.users.user.entity;
 
 
 import lombok.Data;
