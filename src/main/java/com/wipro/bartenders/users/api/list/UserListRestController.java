@@ -1,6 +1,6 @@
-package com.wipro.bartenders.users.user.list;
+package com.wipro.bartenders.users.api.list;
 
-import com.wipro.bartenders.users.user.entity.User;
+import com.wipro.bartenders.users.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,6 +1,6 @@
-package com.wipro.bartenders.users.user.create;
+package com.wipro.bartenders.users.api.create;
 
-import com.wipro.bartenders.users.user.entity.User;
+import com.wipro.bartenders.users.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

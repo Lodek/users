@@ -1,9 +1,9 @@
 package com.wipro.bartenders.users;
 
-import com.wipro.bartenders.users.user.create.UserCreateService;
-import com.wipro.bartenders.users.user.entity.User;
-import com.wipro.bartenders.users.user.update.UserUpdateService;
-import org.junit.jupiter.api.Test;
+import com.wipro.bartenders.users.api.create.UserCreateService;
+import com.wipro.bartenders.users.api.update.UserUpdateService;
+import com.wipro.bartenders.users.domain.user.User;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;

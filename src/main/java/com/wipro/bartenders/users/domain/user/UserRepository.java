@@ -1,6 +1,5 @@
-package com.wipro.bartenders.users.user.repository;
+package com.wipro.bartenders.users.domain.user;
 
-import com.wipro.bartenders.users.user.entity.User;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 

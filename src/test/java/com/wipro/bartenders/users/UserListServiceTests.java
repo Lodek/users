@@ -1,8 +1,8 @@
 package com.wipro.bartenders.users;
 
-import com.wipro.bartenders.users.user.entity.User;
-import com.wipro.bartenders.users.user.list.UserListService;
-import org.junit.jupiter.api.Test;
+import com.wipro.bartenders.users.api.list.UserListService;
+import com.wipro.bartenders.users.domain.user.User;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;

@@ -1,7 +1,7 @@
-package com.wipro.bartenders.users.user.update;
+package com.wipro.bartenders.users.api.update;
 
-import com.wipro.bartenders.users.user.entity.User;
-import com.wipro.bartenders.users.user.repository.UserRepository;
+import com.wipro.bartenders.users.domain.user.User;
+import com.wipro.bartenders.users.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
