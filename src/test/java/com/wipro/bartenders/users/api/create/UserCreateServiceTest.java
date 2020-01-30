@@ -1,14 +1,14 @@
-package com.wipro.bartenders.users;
+package com.wipro.bartenders.users.api.create;
 
-import com.wipro.bartenders.users.api.create.UserCreateService;
 import com.wipro.bartenders.users.domain.user.User;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
+
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
-public class UserCreateServiceTests {
+public class UserCreateServiceTest {
 
     @Autowired
     UserCreateService userCreateService;
@@ -26,17 +26,17 @@ public class UserCreateServiceTests {
                 .thenResponseShouldContainOnlyTheId();
     }
 
-    private UserCreateServiceTests thenResponseShouldContainOnlyTheId() {
-        Assert.isTrue(response.equals("{\"id\":1}"));
+    private UserCreateServiceTest thenResponseShouldContainOnlyTheId() {
+        assertThat(response).isEqualTo("{\"id\":1}");
         return this;
     }
 
-    private UserCreateServiceTests givenUserWithoutId(){
+    private UserCreateServiceTest givenUserWithoutId(){
         noId = new User("trillian", "Tricia", "McMillan", "1994-01-01", "tricia42@dolphins.com");
         return this;
     }
 
-    private UserCreateServiceTests whenUserGetsAdded(){
+    private UserCreateServiceTest whenUserGetsAdded(){
         response = userCreateService.addUser(noId);
         return this;
     }
@@ -48,17 +48,17 @@ public class UserCreateServiceTests {
                 .thenResponseShouldBeAUserWithId(1);
     }
 
-    private UserCreateServiceTests thenResponseShouldBeAUserWithId(int id) {
+    private UserCreateServiceTest thenResponseShouldBeAUserWithId(int id) {
         Assert.isTrue(fetchedUser.getId() == id);
         return this;
     }
 
-    private UserCreateServiceTests whenServiceFetchesUserById(long id) {
+    private UserCreateServiceTest whenServiceFetchesUserById(long id) {
         fetchedUser = userCreateService.getUser(id);
         return this;
     }
 
-    private UserCreateServiceTests givenUserWithId(long id) {
+    private UserCreateServiceTest givenUserWithId(long id) {
         userOne = new User( id, "trillian", "Tricia", "McMillan", "1994-01-01", "tricia42@dolphins.com");
         return this;
     }

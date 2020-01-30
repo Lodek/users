@@ -1,6 +1,5 @@
-package com.wipro.bartenders.users;
+package com.wipro.bartenders.users.api.list;
 
-import com.wipro.bartenders.users.api.list.UserListService;
 import com.wipro.bartenders.users.domain.user.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.util.Assert;
 import java.util.List;
 
 @SpringBootTest
-public class UserListServiceTests {
+public class UserListServiceTest {
 
     @Autowired
     private UserListService userListService;
@@ -24,17 +23,17 @@ public class UserListServiceTests {
                 .thenServiceShouldReturnAllUsers();
     }
 
-    private UserListServiceTests thenServiceShouldReturnAllUsers() {
+    private UserListServiceTest thenServiceShouldReturnAllUsers() {
         Assert.isTrue(this.users.size() == 2);
         return this;
     }
 
-    private UserListServiceTests whenRequestedListOfUsers() {
+    private UserListServiceTest whenRequestedListOfUsers() {
         this.users = userListService.getUsers();
         return this;
     }
 
-    private UserListServiceTests givenNothing(){
+    private UserListServiceTest givenNothing(){
         return this;
     }
 }
