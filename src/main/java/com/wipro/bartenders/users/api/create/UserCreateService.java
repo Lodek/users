@@ -14,8 +14,4 @@ public class UserCreateService {
     public String addUser(User user){
         return String.format("{\"id\":%d}", 1);
     }
-
-    public User getUser(Long id){ return userRepository.getUsers().get(0);
-    }
-
 }

@@ -12,15 +12,9 @@ public class UserCreateRestController {
     @Autowired
     UserCreateService userCreateService;
 
-    @GetMapping(value="/{id}")
-    @ResponseBody
-    public User getUser(@PathVariable("id") Long id){
-        return userCreateService.getUser(id);
-    }
-
-
     @PostMapping
     public String addUser(@RequestBody  User user){
         return userCreateService.addUser(user);
     }
+
 }
