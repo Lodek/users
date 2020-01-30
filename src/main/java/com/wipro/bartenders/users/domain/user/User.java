@@ -1,21 +1,37 @@
 package com.wipro.bartenders.users.domain.user;
 
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+import javax.persistence.*;
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
+
+
+@Getter
+@Setter
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
+    @Column
     private String userName;
 
+    @Column
     private String firstName;
 
+    @Column
     private String lastName;
 
+    @Column
     private String birthDate;
 
+    @Column
     private String email;
 
     public User(long id, String userName, String firstName, String lastName, String birthDate, String email) {
@@ -35,38 +51,57 @@ public class User {
         this.email = email;
     }
 
-    public User(){
+    public User(){ }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(userName, user.userName) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(birthDate, user.birthDate) &&
+                Objects.equals(email, user.email);
     }
 
-    public User update(User newUser) {
-        User clone = null;
-        try {
-            clone = (User) this.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
 
+    public User update(User newUser) {
         String firstName = newUser.getFirstName();
         if (!firstName.isEmpty())
-            clone.setFirstName(firstName);
+            this.setFirstName(firstName);
 
         String userName = newUser.getUserName();
         if (!userName.isEmpty())
-            clone.setUserName(userName);
+            this.setUserName(userName);
 
         String lastName = newUser.getLastName();
         if (!lastName.isEmpty())
-            clone.setLastName(lastName);
+            this.setLastName(lastName);
 
         String birthDate = newUser.getBirthDate();
         if (!birthDate.isEmpty())
-            clone.setFirstName(birthDate);
+            this.setFirstName(birthDate);
 
         String email = newUser.getEmail();
         if(email.isEmpty())
-            clone.setFirstName(email);
+            this.setFirstName(email);
 
-        return clone;
+        return this;
     }
+
+
+    public boolean compareProperty(User a, User b, String propertyName) throws InvocationTargetException, IllegalAccessException, IntrospectionException {
+        //Assume user a and b are both of type User
+        //Uses reflection to reduce repetition in property comparision
+            //PropertyDescriptor pd = new PropertyDescriptor(propertyName, User.class);
+            //Method method = pd.getReadMethod();
+            //Class returnType = method.getReturnType();
+            //Object aValuee = method.invoke(a);
+            //Object bValuee = method.invoke(b);
+            //returnType.cast(aValuee);
+        return true;
+    }
+
 }

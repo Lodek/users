@@ -10,57 +10,57 @@ import static org.assertj.core.api.Assertions.*;
 @SpringBootTest
 public class UserCreateServiceTest {
 
+    @Test
+    public void addingNewUserShouldReturnAnUserWithId(){
+        TestSpec ts = new TestSpec();
+        ts.givenUserWithoutId()
+                .whenUserGetsAdded()
+                .thenReturnedUserShouldHaveAnyId();
+    }
+
+
+    @Test
+    public void addingUserShouldBeQueryableInRepository(){
+        TestSpec ts = new TestSpec();
+        ts.givenUserWithoutId()
+                .whenUserGetsAdded()
+                .whenAddedUserGetsQueried()
+                .thenUserShouldBeFound();
+    }
+
+}
+
+class TestSpec{
+
     @Autowired
     UserCreateService userCreateService;
 
-    User noId;
-    String response;
-    private User userOne;
-    private User fetchedUser;
+    private User noIdUser;
+    private User addedUser;
 
-
-    @Test
-    public void addingUserShouldReturnJsonWithTheirId(){
-        givenUserWithoutId()
-                .whenUserGetsAdded()
-                .thenResponseShouldContainOnlyTheId();
-    }
-
-    private UserCreateServiceTest thenResponseShouldContainOnlyTheId() {
-        assertThat(response).isEqualTo("{\"id\":1}");
+    TestSpec givenUserWithoutId(){
+        this.noIdUser = new User("trillian", "Tricia", "McMillan", "1994-01-01", "tricia42@dolphins.com");
         return this;
     }
 
-    private UserCreateServiceTest givenUserWithoutId(){
-        noId = new User("trillian", "Tricia", "McMillan", "1994-01-01", "tricia42@dolphins.com");
+    TestSpec whenUserGetsAdded(){
+        this.addedUser = userCreateService.addUser(noIdUser);
         return this;
     }
 
-    private UserCreateServiceTest whenUserGetsAdded(){
-        response = userCreateService.addUser(noId);
+    public TestSpec thenReturnedUserShouldHaveAnyId() {
+        assertThat(addedUser.getId()).isNotNull();
         return this;
     }
 
-    @Test
-    public void userGetShouldReturnUserWithId1(){
-        givenUserWithId(1)
-                .whenServiceFetchesUserById(1)
-                .thenResponseShouldBeAUserWithId(1);
-    }
-
-    private UserCreateServiceTest thenResponseShouldBeAUserWithId(int id) {
-        Assert.isTrue(fetchedUser.getId() == id);
+    public TestSpec whenAddedUserGetsQueried() {
+        //this breaks encapsulation?
+        //how to mock
         return this;
     }
 
-    private UserCreateServiceTest whenServiceFetchesUserById(long id) {
-        fetchedUser = userCreateService.getUser(id);
+    public TestSpec thenUserShouldBeFound() {
+        //??
         return this;
     }
-
-    private UserCreateServiceTest givenUserWithId(long id) {
-        userOne = new User( id, "trillian", "Tricia", "McMillan", "1994-01-01", "tricia42@dolphins.com");
-        return this;
-    }
-
 }

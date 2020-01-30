@@ -11,7 +11,7 @@ public class UserCreateService {
     @Autowired
     UserRepository userRepository;
 
-    public String addUser(User user){
-        return String.format("{\"id\":%d}", 1);
+    public User addUser(User user){
+        return userRepository.save(user);
     }
 }

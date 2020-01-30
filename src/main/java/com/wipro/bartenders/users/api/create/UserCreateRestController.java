@@ -13,7 +13,7 @@ public class UserCreateRestController {
     UserCreateService userCreateService;
 
     @PostMapping
-    public String addUser(@RequestBody  User user){
+    public User addUser(@RequestBody  User user){
         return userCreateService.addUser(user);
     }
 
