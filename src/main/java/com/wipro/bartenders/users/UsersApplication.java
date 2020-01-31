@@ -2,6 +2,7 @@ package com.wipro.bartenders.users;
 
 import com.wipro.bartenders.users.domain.user.User;
 import com.wipro.bartenders.users.domain.user.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +23,11 @@ public class UsersApplication {
 			repository.save(user1);
 			repository.save(user2);
 		};
+	}
+
+	@Bean
+	public ModelMapper  modelMapper(){
+		return new ModelMapper();
 	}
 
 }

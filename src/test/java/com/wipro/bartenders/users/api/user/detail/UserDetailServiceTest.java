@@ -1,4 +1,4 @@
-package com.wipro.bartenders.users.api.detail;
+package com.wipro.bartenders.users.api.user.detail;
 
 import com.wipro.bartenders.users.domain.user.UserRepository;
 import org.junit.Test;

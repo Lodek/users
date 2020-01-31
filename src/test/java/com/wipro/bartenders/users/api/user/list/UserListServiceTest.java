@@ -1,4 +1,4 @@
-package com.wipro.bartenders.users.api.list;
+package com.wipro.bartenders.users.api.user.list;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

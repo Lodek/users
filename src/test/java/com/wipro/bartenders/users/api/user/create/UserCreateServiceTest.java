@@ -1,4 +1,4 @@
-package com.wipro.bartenders.users.api.create;
+package com.wipro.bartenders.users.api.user.create;
 
 import com.wipro.bartenders.users.domain.user.User;
 import org.junit.Test;
@@ -16,16 +16,6 @@ public class UserCreateServiceTest {
         ts.givenUserWithoutId()
                 .whenUserGetsAdded()
                 .thenReturnedUserShouldHaveAnyId();
-    }
-
-
-    @Test
-    public void addingUserShouldBeQueryableInRepository(){
-        TestSpec ts = new TestSpec();
-        ts.givenUserWithoutId()
-                .whenUserGetsAdded()
-                .whenAddedUserGetsQueried()
-                .thenUserShouldBeFound();
     }
 
 }

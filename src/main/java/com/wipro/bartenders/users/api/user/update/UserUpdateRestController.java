@@ -1,4 +1,4 @@
-package com.wipro.bartenders.users.api.update;
+package com.wipro.bartenders.users.api.user.update;
 
 import com.wipro.bartenders.users.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
