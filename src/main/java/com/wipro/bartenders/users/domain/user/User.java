@@ -53,6 +53,10 @@ public class User {
 
     public User(){ }
 
+    public static User emptyUser(){
+        return new User();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
