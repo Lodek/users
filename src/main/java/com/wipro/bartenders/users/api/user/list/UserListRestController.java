@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
+
+import static com.wipro.bartenders.users.util.ControllerUtil.mapIterable;
 
 @RequestMapping("/users")
 @RestController
@@ -27,8 +26,7 @@ public class UserListRestController {
     @GetMapping
     public List<UserListResponse> listUsers(){
         Iterable<User> users = userListService.getUsers();
-        Stream<User> mapper = StreamSupport.stream(users.spliterator(), false);
-        return mapper.map(this::dtoFromUser).collect(Collectors.toList());
+        return mapIterable(users, this::dtoFromUser);
     }
 
     private UserListResponse dtoFromUser(User user){
