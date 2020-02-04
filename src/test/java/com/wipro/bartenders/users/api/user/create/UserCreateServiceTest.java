@@ -2,7 +2,7 @@ package com.wipro.bartenders.users.api.user.create;
 
 import com.wipro.bartenders.users.domain.user.User;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,17 +12,17 @@ public class UserCreateServiceTest {
 
     @Test
     public void addingNewUserShouldReturnAnUserWithId(){
-        TestSpec ts = new TestSpec();
-        ts.givenUserWithoutId()
-                .whenUserGetsAdded()
-                .thenReturnedUserShouldHaveAnyId();
+        new TestSpec()
+        .givenUserWithoutId()
+        .whenUserGetsAdded()
+        .thenReturnedUserShouldHaveAnyId();
     }
 
 }
 
 class TestSpec{
 
-    @Autowired
+    @InjectMocks
     UserCreateService userCreateService;
 
     private User noIdUser;

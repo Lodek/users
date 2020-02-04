@@ -3,17 +3,18 @@ package com.wipro.bartenders.users.api.role.list;
 import com.wipro.bartenders.users.domain.role.Role;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-
-import static com.wipro.bartenders.users.util.ControllerUtil.mapIterable;
 
 @RestController
 @RequestMapping("/roles")
 public class RoleListController {
+
+    private final static int maxPageSize = 1;
 
     @Autowired
     ModelMapper modelMapper;
@@ -22,9 +23,11 @@ public class RoleListController {
     RoleListService roleListService;
 
     @GetMapping
-    public List<RoleListResponse> listRoles(){
-        Iterable<Role> roles = roleListService.listRoles();
-        return mapIterable(roles, this::toDto);
+    public Page<RoleListResponse> listRoles(@RequestParam(defaultValue = "0", name="page") int pageNum,
+                                            @RequestParam(defaultValue = "1", name="results") int pageSize){
+        pageSize = pageSize > maxPageSize ? maxPageSize : pageSize;
+        Page<Role> roles = roleListService.listRoles(PageRequest.of(pageNum, pageSize));
+        return roles.map(this::toDto);
     }
 
 

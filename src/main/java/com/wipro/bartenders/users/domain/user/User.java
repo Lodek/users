@@ -73,23 +73,23 @@ public class User {
 
     public User update(User newUser) {
         String firstName = newUser.getFirstName();
-        if (!firstName.isEmpty())
+        if (firstName != null && !firstName.isEmpty())
             this.setFirstName(firstName);
 
         String userName = newUser.getUserName();
-        if (!userName.isEmpty())
+        if (userName != null && !userName.isEmpty())
             this.setUserName(userName);
 
         String lastName = newUser.getLastName();
-        if (!lastName.isEmpty())
+        if (lastName != null && !lastName.isEmpty())
             this.setLastName(lastName);
 
         String birthDate = newUser.getBirthDate();
-        if (!birthDate.isEmpty())
+        if (birthDate != null && !birthDate.isEmpty())
             this.setFirstName(birthDate);
 
         String email = newUser.getEmail();
-        if(email.isEmpty())
+        if(email != null && email.isEmpty())
             this.setFirstName(email);
 
         return this;

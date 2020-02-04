@@ -1,0 +1,8 @@
+* questions
+- Should Service tests be rewritten as an  integration test or only the controller?
+- Does it make ssense  to unit test controllers or only integration tests?
+
+* todos
+- Add appropriate Response codes
+- Test POJO
+

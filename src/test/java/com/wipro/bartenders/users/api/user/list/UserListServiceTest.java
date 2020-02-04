@@ -55,6 +55,7 @@ class TestSpec{
         return this;
     }
 
+
     public TestSpec given_mocks() {
         when(this.repository.findAll()).thenReturn(Arrays.asList(user));
         return this;
