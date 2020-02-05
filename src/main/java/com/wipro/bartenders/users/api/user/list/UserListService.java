@@ -21,9 +21,4 @@ public class UserListService {
         return userRepository.findAll(pageable);
     }
 
-    public Iterable<User> getUsers(){
-        return userRepository.findAll();
-    }
-
-
 }

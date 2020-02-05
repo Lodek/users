@@ -6,23 +6,28 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.times;
 
 
-@SpringBootTest
 public class UserListServiceTest {
 
     @Test
-    public void userServiceShouldReturnAllUsersStored(){
+    public void getUsers_requestPageOfUsers_returnPageable(){
+        Pageable pageable = PageRequest.of(1, 1);
         new TestSpec()
-        .given_mocks()
-        .whenRequestedListOfUsers()
-        .thenServiceShouldReturnAllUsers();
+        .given_populated_base(pageable)
+        .when_requested_all_users()
+        .then_service_should_return_page_of_users();
     }
 
 }
@@ -38,26 +43,29 @@ class TestSpec{
     @Mock
     User user;
 
-    Iterable<User> users;
+    Pageable pageable;
+    Page<User> users;
 
-    public TestSpec(){
+    TestSpec(){
         MockitoAnnotations.initMocks(this);
     }
 
-    public TestSpec thenServiceShouldReturnAllUsers() {
+    TestSpec then_service_should_return_page_of_users() {
         assertThat(this.users).isNotNull();
-        verify(repository, times(1)).findAll();
+        then(repository).should(times(1)).findAll(pageable);
         return this;
     }
 
-    public TestSpec whenRequestedListOfUsers() {
-        this.users = service.getUsers();
+    TestSpec when_requested_all_users() {
+        this.users = this.service.getUsers(pageable);
         return this;
     }
 
 
-    public TestSpec given_mocks() {
-        when(this.repository.findAll()).thenReturn(Arrays.asList(user));
+    TestSpec given_populated_base(Pageable pageable) {
+        this.pageable =  pageable;
+        Page<User> page = new PageImpl(Arrays.asList(this.user));
+        given(this.repository.findAll(this.pageable)).willReturn(page);
         return this;
     }
 }
