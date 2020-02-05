@@ -11,8 +11,9 @@ public class UserDetailService {
     @Autowired
     private UserRepository userRepository;
 
-    public User getUser(Long id){
+    public User getUser(Long id) throws RuntimeException{
         //Return an empty user if user is not found
-        return userRepository.findById(id).orElse(User.emptyUser());
+        String msg = String.format("User with ID %s does not exist", id);
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException(msg));
     }
 }
