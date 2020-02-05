@@ -2,39 +2,38 @@ package com.wipro.bartenders.users.domain.user;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
 import java.util.Objects;
 
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @Column
     private String userName;
 
-    @Column
     private String firstName;
 
-    @Column
     private String lastName;
 
-    @Column
-    private String birthDate;
+    @Temporal(TemporalType.DATE)
+    private LocalDate birthDate;
 
-    @Column
     private String email;
 
-    public User(long id, String userName, String firstName, String lastName, String birthDate, String email) {
+    public User(long id, String userName, String firstName, String lastName, LocalDate birthDate, String email) {
         this.id = id;
         this.userName = userName;
         this.firstName = firstName;
@@ -43,15 +42,13 @@ public class User {
         this.email = email;
     }
 
-    public User(String userName, String firstName, String lastName, String birthDate, String email) {
+    public User(String userName, String firstName, String lastName, LocalDate birthDate, String email) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.email = email;
     }
-
-    public User(){ }
 
     public static User emptyUser(){
         return new User();
@@ -72,25 +69,24 @@ public class User {
 
 
     public User update(User newUser) {
-        String firstName = newUser.getFirstName();
-        if (firstName != null && !firstName.isEmpty())
-            this.setFirstName(firstName);
 
-        String userName = newUser.getUserName();
-        if (userName != null && !userName.isEmpty())
-            this.setUserName(userName);
+        if (newUser.userName != null && !newUser.userName.isEmpty())
+            this.setUserName(newUser.userName);
 
-        String lastName = newUser.getLastName();
-        if (lastName != null && !lastName.isEmpty())
-            this.setLastName(lastName);
+        if (newUser.firstName != null && !newUser.firstName.isEmpty())
+            this.setFirstName(newUser.firstName);
 
-        String birthDate = newUser.getBirthDate();
-        if (birthDate != null && !birthDate.isEmpty())
-            this.setFirstName(birthDate);
+        if (newUser.lastName != null && !newUser.lastName.isEmpty())
+            this.setLastName(newUser.lastName);
 
-        String email = newUser.getEmail();
-        if(email != null && email.isEmpty())
-            this.setFirstName(email);
+        if (newUser.id != null)
+            this.setId(newUser.id);
+
+        if (newUser.email != null && !newUser.email.isEmpty())
+            this.setEmail(newUser.email);
+
+        if (newUser.birthDate != null)
+            this.setBirthDate(newUser.birthDate);
 
         return this;
     }

@@ -8,6 +8,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
@@ -67,7 +69,7 @@ class TestSpec{
 
     TestSpec given_an_existing_user_with_id(long id) {
         this.existingUser = new User(id, "userName", "firstName", "lastName",
-                "01-08-2000", "email@email.com");
+                LocalDate.parse("01-08-2000"), "email@email.com");
         given(userRepository.findById(id)).willReturn(java.util.Optional.ofNullable(this.existingUser));
         return this;
     }

@@ -28,6 +28,8 @@ public class UserCreateRestController {
     }
 
     private User dtoToUser(UserCreateRequest requestDto){
-        return modelMapper.map(requestDto, User.class);
+        User user = modelMapper.map(requestDto, User.class);
+        user.setBirthDate(requestDto.parseDate());
+        return user;
     }
 }
