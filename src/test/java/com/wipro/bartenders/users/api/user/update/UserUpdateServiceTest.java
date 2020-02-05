@@ -17,7 +17,7 @@ import static org.mockito.BDDMockito.then;
 public class UserUpdateServiceTest {
 
     @Test
-    public void updateUser_validUserIdAndUpdatUserObject_ShouldOnlyOverwriteSetProperties(){
+    public void updateUser_validUserIdAndUpdateUserObject_ShouldOnlyOverwriteSetProperties(){
         Long validId = 1L;
         String newEmail = "newemail@email.com";
         new TestSpec()
