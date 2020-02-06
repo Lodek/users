@@ -60,13 +60,14 @@ class TestSpec{
         return this;
     }
 
-    public TestSpec then_returned_user_should_have_any_id() {
+    TestSpec then_returned_user_should_have_any_id() {
         assertThat(addedUser.getId()).isNotNull();
         return this;
     }
 
-    public TestSpec then_user_should_get_saved() {
+    TestSpec then_user_should_get_saved() {
         then(userRepository).should(times(1)).save(noIdUser);
         return this;
     }
+
 }

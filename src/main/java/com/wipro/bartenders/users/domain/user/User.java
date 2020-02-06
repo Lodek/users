@@ -28,7 +28,6 @@ public class User {
 
     private String lastName;
 
-    @Temporal(TemporalType.DATE)
     private LocalDate birthDate;
 
     private String email;
