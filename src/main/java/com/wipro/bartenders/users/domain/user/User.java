@@ -5,9 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.beans.IntrospectionException;
-import java.lang.reflect.InvocationTargetException;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -88,19 +89,6 @@ public class User {
             this.setBirthDate(newUser.birthDate);
 
         return this;
-    }
-
-
-    public boolean compareProperty(User a, User b, String propertyName) throws InvocationTargetException, IllegalAccessException, IntrospectionException {
-        //Assume user a and b are both of type User
-        //Uses reflection to reduce repetition in property comparision
-            //PropertyDescriptor pd = new PropertyDescriptor(propertyName, User.class);
-            //Method method = pd.getReadMethod();
-            //Class returnType = method.getReturnType();
-            //Object aValuee = method.invoke(a);
-            //Object bValuee = method.invoke(b);
-            //returnType.cast(aValuee);
-        return true;
     }
 
 }
