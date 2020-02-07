@@ -1,10 +1,10 @@
 package com.wipro.bartenders.users.api.user.detail;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+@NoArgsConstructor
+@Data
 public class UserDetailResponse{
     //A lot of code repetition
     //kinda lame

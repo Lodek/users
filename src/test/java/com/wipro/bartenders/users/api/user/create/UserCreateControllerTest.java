@@ -98,6 +98,4 @@ class TestSp {
         assertThat(responseDto.getId()).isNotNull();
         return this;
     }
-
-
 }

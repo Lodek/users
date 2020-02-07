@@ -7,5 +7,4 @@ package com.wipro.bartenders.users.api.user.create;
 @Setter
 public class UserCreateResponse {
     Long id;
-
 }

@@ -1,13 +1,10 @@
 package com.wipro.bartenders.users.api.user.detail;
 
-import com.wipro.bartenders.users.api.user.create.UserCreateResponse;
 import com.wipro.bartenders.users.domain.user.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -19,14 +16,20 @@ public class UserDetailRestController {
     @Autowired
     ModelMapper modelMapper;
 
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleUserNotFoundException(UserNotFoundException e) {
+        return e.getMessage();
+    }
+
     @GetMapping("/{id}")
-    public UserCreateResponse getUser(@PathVariable Long id) {
+    public UserDetailResponse getUser(@PathVariable Long id) throws UserNotFoundException {
         User user = userDetailService.getUser(id);
         return dtoFromUser(user);
     }
 
-    private UserCreateResponse dtoFromUser(User user){
-        return modelMapper.map(user, UserCreateResponse.class);
+    private UserDetailResponse dtoFromUser(User user){
+        return modelMapper.map(user, UserDetailResponse.class);
     }
 
 }
