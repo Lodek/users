@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @RunWith(SpringJUnit4ClassRunner.class)
-public class UserCreateControllerTest {
+public class UsersCreateControllerTest {
 
     @Autowired
     private WebApplicationContext wac;
@@ -41,7 +41,7 @@ public class UserCreateControllerTest {
     }
 
     @Test
-    public void createUser_whenAddedUser_ReturnedObjectContainsId() throws Exception{
+    public void createUsers_whenAddedUsers_ReturnedObjectContainsId() throws Exception{
         new TestSp(objectMapper, wac)
         .given_user_requestDto()
         .when_requested_post()
@@ -57,11 +57,11 @@ class TestSp {
 
     MockMvc mockMvc;
 
-    UserCreateRequest requestDto;
+    UsersCreateRequest requestDto;
     MvcResult response;
     ResultActions resultActions;
-    UserCreateResponse expectedDto;
-    UserCreateResponse responseDto;
+    UsersCreateResponse expectedDto;
+    UsersCreateResponse responseDto;
 
     TestSp(ObjectMapper objectMapper, WebApplicationContext wac) throws Exception {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
@@ -76,7 +76,7 @@ class TestSp {
     }
 
     TestSp given_user_requestDto(){
-        requestDto = new UserCreateRequest();
+        requestDto = new UsersCreateRequest();
         requestDto.setUserName("bob.ross");
         requestDto.setFirstName("Bob");
         requestDto.setLastName("Ross");
@@ -94,7 +94,7 @@ class TestSp {
         //Using Jackson to map objects from Json and to Json
         response = resultActions.andReturn();
         String content = response.getResponse().getContentAsString();
-        UserCreateResponse responseDto = objectMapper.readValue(content, UserCreateResponse.class);
+        UsersCreateResponse responseDto = objectMapper.readValue(content, UsersCreateResponse.class);
         assertThat(responseDto.getId()).isNotNull();
         return this;
     }

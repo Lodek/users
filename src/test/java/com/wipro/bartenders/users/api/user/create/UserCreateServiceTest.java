@@ -33,7 +33,7 @@ public class UserCreateServiceTest {
 class TestSpec{
 
     @InjectMocks
-    UserCreateService userCreateService;
+    UsersCreateService userCreateService;
 
     @Mock
     UserRepository userRepository;

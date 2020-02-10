@@ -3,7 +3,6 @@
 - Does it make ssense  to unit test controllers or only integration tests?
 
 * todos
-- Add appropriate Response codes
 - Test POJO
 
 - I am writing integration tests at an http packket level, I am bothered that I am not mapping the response json to their corresponding objects.
