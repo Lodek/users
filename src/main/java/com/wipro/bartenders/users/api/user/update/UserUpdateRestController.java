@@ -1,6 +1,7 @@
 package com.wipro.bartenders.users.api.user.update;
 
 import com.wipro.bartenders.users.api.user.common.UserMapper;
+import com.wipro.bartenders.users.api.user.common.UsersDetailsDto;
 import com.wipro.bartenders.users.api.user.common.UsersDto;
 import com.wipro.bartenders.users.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,10 @@ public class UserUpdateRestController {
     UserMapper mapper;
 
     @PutMapping("/{id}")
-    public UserUpdateResponse updateUser(@PathVariable Long id, @RequestBody UsersDto request){
+    public UsersDetailsDto updateUser(@PathVariable Long id, @RequestBody UsersDto request){
         User updatedUser = mapper.fromDto(request);
         updatedUser = userUpdateService.updateUser(id, updatedUser);
-        return (UserUpdateResponse) mapper.toDetailsDto(updatedUser);
+        return mapper.toDetailsDto(updatedUser);
     }
 
 }

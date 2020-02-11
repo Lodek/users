@@ -1,6 +1,7 @@
 package com.wipro.bartenders.users.api.user.list;
 
 import com.wipro.bartenders.users.api.user.common.UserMapper;
+import com.wipro.bartenders.users.api.user.common.UsersIdDto;
 import com.wipro.bartenders.users.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,14 +23,14 @@ public class UserListRestController {
     UserMapper mapper;
 
     @GetMapping
-    public Page<UserListResponse> listUsers(@RequestParam(name="page", defaultValue="0") int pageNum,
-                                            @RequestParam(name="numResults", defaultValue="1") int pageSize){
+    public Page<UsersIdDto> listUsers(@RequestParam(name="page", defaultValue="0") int pageNum,
+                                      @RequestParam(name="numResults", defaultValue="1") int pageSize){
         //List user using paging, optionally receive pageSize and pageNumber
         //Silently ignore if pageSize is bigger than the  maximum allowed
         pageSize = pageSize > maxPageSize ? maxPageSize : pageSize;
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<User> users = userListService.getUsers(pageable);
-        return users.map((user) -> UserListResponse.class.cast(mapper.toDetailsDto(user)));
+        return users.map(mapper::toIdDto);
     }
 
 }

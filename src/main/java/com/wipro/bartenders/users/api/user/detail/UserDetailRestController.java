@@ -2,6 +2,7 @@ package com.wipro.bartenders.users.api.user.detail;
 
 import com.wipro.bartenders.users.api.user.common.UserMapper;
 import com.wipro.bartenders.users.api.user.common.UserNotFoundException;
+import com.wipro.bartenders.users.api.user.common.UsersDetailsDto;
 import com.wipro.bartenders.users.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +25,9 @@ public class UserDetailRestController {
     }
 
     @GetMapping("/{id}")
-    public UserDetailResponse getUser(@PathVariable Long id) throws UserNotFoundException {
+    public UsersDetailsDto getUser(@PathVariable Long id) throws UserNotFoundException {
         User user = userDetailService.getUser(id);
-        return (UserDetailResponse) mapper.toDetailsDto(user);
+        return mapper.toDetailsDto(user);
     }
 
 
