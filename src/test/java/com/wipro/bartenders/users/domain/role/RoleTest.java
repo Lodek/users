@@ -1,6 +1,5 @@
-package com.wipro.bartenders.users.domain.user;
+package com.wipro.bartenders.users.domain.role;
 
-import com.wipro.bartenders.users.domain.role.Role;
 import com.wipro.bartenders.users.utils.PojoTestUtils;
 import org.junit.Test;
 

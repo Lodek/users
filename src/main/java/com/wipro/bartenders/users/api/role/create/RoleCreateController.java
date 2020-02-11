@@ -1,7 +1,8 @@
 package com.wipro.bartenders.users.api.role.create;
 
+import com.wipro.bartenders.users.api.role.common.RolesDto;
+import com.wipro.bartenders.users.api.role.common.RoleMapper;
 import com.wipro.bartenders.users.domain.role.Role;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,20 +15,13 @@ public class RoleCreateController {
     RoleCreateService roleCreateService;
 
     @Autowired
-    ModelMapper modelMapper;
+    RoleMapper mapper;
 
     @PostMapping
-    public RoleCreateResponse addRole(@RequestBody RoleCreateRequest requestDto) {
-        Role role = dtoToUser(requestDto);
+    public RoleCreateResponse addRole(@RequestBody RolesDto request) {
+        Role role = mapper.fromDto(request);
         roleCreateService.addRole(role);
-        return dtoFromUser(role);
+        return (RoleCreateResponse) mapper.toDetailsDto(role);
     }
 
-    private RoleCreateResponse dtoFromUser(Role role){
-        return modelMapper.map(role, RoleCreateResponse.class);
-    }
-
-    private Role dtoToUser(RoleCreateRequest requestDto){
-        return modelMapper.map(requestDto, Role.class);
-    }
 }

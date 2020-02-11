@@ -33,10 +33,10 @@ public class UserCreateServiceTest {
 class TestSpec{
 
     @InjectMocks
-    UsersCreateService userCreateService;
+    UsersCreateService service;
 
     @Mock
-    UserRepository userRepository;
+    UserRepository repository;
 
     User noIdUser;
     User addedUser;
@@ -51,12 +51,12 @@ class TestSpec{
         User returnUser = new User();
         returnUser.update(noIdUser);
         returnUser.setId(1L);
-        given(userRepository.save(noIdUser)).willReturn(returnUser);
+        given(repository.save(noIdUser)).willReturn(returnUser);
         return this;
     }
 
     TestSpec when_user_gets_added(){
-        addedUser = userCreateService.addUser(noIdUser);
+        addedUser = service.addUser(noIdUser);
         return this;
     }
 
@@ -66,7 +66,7 @@ class TestSpec{
     }
 
     TestSpec then_user_should_get_saved() {
-        then(userRepository).should(times(1)).save(noIdUser);
+        then(repository).should(times(1)).save(noIdUser);
         return this;
     }
 

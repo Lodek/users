@@ -4,7 +4,6 @@ import com.wipro.bartenders.users.domain.role.Role;
 import com.wipro.bartenders.users.domain.role.RoleRepository;
 import com.wipro.bartenders.users.domain.user.User;
 import com.wipro.bartenders.users.domain.user.UserRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,11 +31,6 @@ public class UsersApplication {
 			Role role2 = new Role("read", 1);
 			roleRepository.saveAll(Arrays.asList(role1, role2));
 		};
-	}
-
-	@Bean
-	public ModelMapper  modelMapper(){
-		return new ModelMapper();
 	}
 
 }

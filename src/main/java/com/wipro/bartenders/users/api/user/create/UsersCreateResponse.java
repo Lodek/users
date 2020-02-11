@@ -1,11 +1,6 @@
 package com.wipro.bartenders.users.api.user.create;
 
-import com.wipro.bartenders.users.api.user.common.UserDto;
-import lombok.Getter;
-import lombok.Setter;
+import com.wipro.bartenders.users.api.user.common.UsersDetailsDto;
 
-@Getter
-@Setter
-public class UsersCreateResponse extends UserDto {
-    Long id;
+public class UsersCreateResponse extends UsersDetailsDto {
 }

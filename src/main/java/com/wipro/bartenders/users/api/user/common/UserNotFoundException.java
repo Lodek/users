@@ -1,4 +1,4 @@
-package com.wipro.bartenders.users.api.user.detail;
+package com.wipro.bartenders.users.api.user.common;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(Long id) {

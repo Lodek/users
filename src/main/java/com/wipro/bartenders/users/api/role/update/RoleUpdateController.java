@@ -1,7 +1,7 @@
 package com.wipro.bartenders.users.api.role.update;
 
+import com.wipro.bartenders.users.api.role.common.RoleMapper;
 import com.wipro.bartenders.users.domain.role.Role;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,20 +13,13 @@ public class RoleUpdateController {
     private RoleUpdateService roleUpdateService;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private RoleMapper mapper;
 
     @PutMapping("/{id}")
     public RoleUpdateResponse updateUser(@PathVariable Long id, @RequestBody RoleUpdateRequest request){
-        Role newRole = fromDto(request);
+        Role newRole = mapper.fromDto(request);
         Role updatedRole = roleUpdateService.updateRole(id, newRole);
-        return toDto(updatedRole);
+        return (RoleUpdateResponse) mapper.toDetailsDto(updatedRole);
     }
 
-    private Role fromDto(RoleUpdateRequest request){
-        return modelMapper.map(request, Role.class);
-    }
-
-    private RoleUpdateResponse toDto(Role role){
-        return modelMapper.map(role, RoleUpdateResponse.class);
-    }
 }

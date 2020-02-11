@@ -1,10 +1,6 @@
 package com.wipro.bartenders.users.api.user.create;
 
-import com.wipro.bartenders.users.api.user.common.UserDto;
-import lombok.Getter;
-import lombok.Setter;
+import com.wipro.bartenders.users.api.user.common.UsersDto;
 
-@Getter
-@Setter
-public class UsersCreateRequest extends UserDto {
+public class UsersCreateRequest extends UsersDto {
 }

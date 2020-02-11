@@ -1,14 +1,6 @@
 package com.wipro.bartenders.users.api.role.create;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.wipro.bartenders.users.api.role.common.RolesDto;
 
-@Getter
-@Setter
-public class RoleCreateRequest {
-    //request DTO does not allow user to set ID
-
-    private String name;
-    private Integer permissionLevel;
-
+public class RoleCreateRequest extends RolesDto {
 }

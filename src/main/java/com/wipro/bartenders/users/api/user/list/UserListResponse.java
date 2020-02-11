@@ -1,13 +1,7 @@
 package com.wipro.bartenders.users.api.user.list;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.wipro.bartenders.users.api.user.common.UsersIdDto;
 
-@Getter
-@Setter
-public class UserListResponse{
-
-    Long id;
-    String userName;
+public class UserListResponse extends UsersIdDto {
 }
 

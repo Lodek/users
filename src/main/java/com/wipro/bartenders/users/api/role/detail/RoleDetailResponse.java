@@ -1,11 +1,6 @@
 package com.wipro.bartenders.users.api.role.detail;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.wipro.bartenders.users.api.role.common.RolesDetailsDto;
 
-@Getter
-@Setter
-public class RoleDetailResponse {
-    String name;
-    Integer permissionLevel;
+public class RoleDetailResponse extends RolesDetailsDto {
 }

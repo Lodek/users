@@ -1,7 +1,7 @@
 package com.wipro.bartenders.users.api.user.list;
 
+import com.wipro.bartenders.users.api.user.common.UserMapper;
 import com.wipro.bartenders.users.domain.user.User;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class UserListRestController {
 
-    private final static int maxPageSize = 1;
+    private final static int maxPageSize = 10;
 
     @Autowired
     UserListService userListService;
 
     @Autowired
-    ModelMapper modelMapper;
+    UserMapper mapper;
 
     @GetMapping
     public Page<UserListResponse> listUsers(@RequestParam(name="page", defaultValue="0") int pageNum,
@@ -29,10 +29,7 @@ public class UserListRestController {
         pageSize = pageSize > maxPageSize ? maxPageSize : pageSize;
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<User> users = userListService.getUsers(pageable);
-        return users.map(this::dtoFromUser);
+        return users.map((user) -> UserListResponse.class.cast(mapper.toDetailsDto(user)));
     }
 
-    private UserListResponse dtoFromUser(User user){
-        return modelMapper.map(user, UserListResponse.class);
-    }
 }

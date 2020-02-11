@@ -14,8 +14,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -26,24 +26,17 @@ public class UsersCreateControllerTest {
     @Autowired
     private WebApplicationContext wac;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @Before
     public void setup() throws Exception{
-        System.out.println("Beans! :");
-        System.out.println(wac.getBeanDefinitionNames());
+        System.out.println("Beans!");
+        for (String name : wac.getBeanDefinitionNames())
+            System.out.println(name);
     }
 
     @Test
-    public void contextIsLoadedTest(){
-        assertThat(wac).isNotNull();
-    }
-
-    @Test
-    public void createUsers_whenAddedUsers_ReturnedObjectContainsId() throws Exception{
-        new TestSp(objectMapper, wac)
-        .given_user_requestDto()
+    public void createUsers_whenAddedUsers_returnedObjectContainsId() throws Exception{
+        new TestSp(wac)
+        .given_request_json()
         .when_requested_post()
         .then_response_should_be_200()
         .then_response_should_have_user_id();
@@ -59,23 +52,21 @@ class TestSp {
 
     UsersCreateRequest requestDto;
     MvcResult response;
-    ResultActions resultActions;
-    UsersCreateResponse expectedDto;
-    UsersCreateResponse responseDto;
+    ResultActions result;
 
-    TestSp(ObjectMapper objectMapper, WebApplicationContext wac) throws Exception {
+    TestSp(WebApplicationContext wac) throws Exception {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-        this.objectMapper = objectMapper;
+        this.objectMapper = new ObjectMapper();
     }
 
     TestSp when_requested_post() throws Exception{
-        resultActions = mockMvc.perform(post("/users")
+        result = mockMvc.perform(post("/users")
                           .contentType("application/json")
                           .content(objectMapper.writeValueAsString(requestDto)));
         return this;
     }
 
-    TestSp given_user_requestDto(){
+    TestSp given_request_json(){
         requestDto = new UsersCreateRequest();
         requestDto.setUserName("bob.ross");
         requestDto.setFirstName("Bob");
@@ -86,16 +77,14 @@ class TestSp {
     }
 
     TestSp then_response_should_be_200() throws Exception{
-        resultActions.andExpect(status().isOk());
+        result.andExpect(status().isOk());
         return this;
     }
 
     TestSp then_response_should_have_user_id() throws Exception {
         //Using Jackson to map objects from Json and to Json
-        response = resultActions.andReturn();
-        String content = response.getResponse().getContentAsString();
-        UsersCreateResponse responseDto = objectMapper.readValue(content, UsersCreateResponse.class);
-        assertThat(responseDto.getId()).isNotNull();
+        response = result.andReturn();
+        result.andExpect(jsonPath("$.id").isNotEmpty());
         return this;
     }
 }

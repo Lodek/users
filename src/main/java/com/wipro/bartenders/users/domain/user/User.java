@@ -2,7 +2,6 @@ package com.wipro.bartenders.users.domain.user;
 
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -16,7 +15,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
 public class User {
 
     @Id
@@ -49,6 +47,8 @@ public class User {
         this.birthDate = birthDate;
         this.email = email;
     }
+
+    public User(){}
 
     public static User emptyUser(){
         return new User();

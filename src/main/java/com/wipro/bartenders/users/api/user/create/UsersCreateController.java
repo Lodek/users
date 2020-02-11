@@ -1,7 +1,7 @@
 package com.wipro.bartenders.users.api.user.create;
 
+import com.wipro.bartenders.users.api.user.common.UserMapper;
 import com.wipro.bartenders.users.domain.user.User;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,18 +11,15 @@ import org.springframework.web.bind.annotation.*;
 public class UsersCreateController {
 
     @Autowired
-    UsersCreateService userCreateService;
+    UsersCreateService usersCreateService;
 
     @Autowired
-    ModelMapper modelMapper;
-
-    @Autowired
-    UsersCreateMapper mapper;
+    UserMapper mapper;
 
     @PostMapping
     public UsersCreateResponse addUser(@RequestBody  UsersCreateRequest request) {
         User user = mapper.fromDto(request);
-        userCreateService.addUser(user);
-        return mapper.toDto(user);
+        usersCreateService.addUser(user);
+        return (UsersCreateResponse) mapper.toDetailsDto(user);
     }
 }

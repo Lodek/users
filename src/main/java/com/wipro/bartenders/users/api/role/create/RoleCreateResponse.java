@@ -1,10 +1,6 @@
 package com.wipro.bartenders.users.api.role.create;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.wipro.bartenders.users.api.role.common.RolesDetailsDto;
 
-@Getter
-@Setter
-public class RoleCreateResponse {
-    Long id;
+public class RoleCreateResponse extends RolesDetailsDto {
 }

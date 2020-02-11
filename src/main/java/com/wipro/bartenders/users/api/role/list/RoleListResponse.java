@@ -1,10 +1,6 @@
 package com.wipro.bartenders.users.api.role.list;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.wipro.bartenders.users.api.role.common.RolesIdDto;
 
-@Getter
-@Setter
-public class RoleListResponse{
-    private Long id;
+public class RoleListResponse extends RolesIdDto {
 }
