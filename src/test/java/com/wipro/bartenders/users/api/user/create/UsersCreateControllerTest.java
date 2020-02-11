@@ -1,6 +1,7 @@
 package com.wipro.bartenders.users.api.user.create;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wipro.bartenders.users.api.user.common.UsersDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,7 +51,7 @@ class TestSp {
 
     MockMvc mockMvc;
 
-    UsersCreateRequest requestDto;
+    UsersDto requestDto;
     MvcResult response;
     ResultActions result;
 
@@ -67,7 +68,7 @@ class TestSp {
     }
 
     TestSp given_request_json(){
-        requestDto = new UsersCreateRequest();
+        requestDto = new UsersDto();
         requestDto.setUserName("bob.ross");
         requestDto.setFirstName("Bob");
         requestDto.setLastName("Ross");

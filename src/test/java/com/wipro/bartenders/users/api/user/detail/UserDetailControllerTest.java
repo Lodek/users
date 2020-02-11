@@ -1,6 +1,7 @@
 package com.wipro.bartenders.users.api.user.detail;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wipro.bartenders.users.api.user.common.UsersDetailsDto;
 import com.wipro.bartenders.users.domain.user.User;
 import com.wipro.bartenders.users.domain.user.UserRepository;
 import org.junit.Test;
@@ -68,7 +69,7 @@ class TestSp {
     Long id;
     private ResultActions result;
     private MvcResult response;
-    private UserDetailResponse expectedResponse;
+    private UsersDetailsDto expectedResponse;
     private User user;
 
     TestSp(WebApplicationContext wac, UserRepository userRepository){
@@ -84,7 +85,7 @@ class TestSp {
         LocalDate dob = LocalDate.of(0,1,1);
         String email = "david.jon@email.com";
         this.user = new User(id, userName, firstName, lastName, dob, email);
-        expectedResponse = new UserDetailResponse();
+        expectedResponse = new UsersDetailsDto();
         expectedResponse.setUserName(userName);
         expectedResponse.setFirstName(firstName);
         expectedResponse.setLastName(lastName);
