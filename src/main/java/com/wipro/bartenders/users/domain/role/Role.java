@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -39,6 +40,7 @@ public class Role {
     public Role(String name, int lvl) {
         this.name = name;
         this.permissionLevel = lvl;
+        this.users = new ArrayList<User>();
     }
 
     public Role update(Role newRole) {

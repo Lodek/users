@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,6 +46,7 @@ public class User {
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.email = email;
+        this.roles = new ArrayList<Role>();
     }
 
 
@@ -78,6 +80,12 @@ public class User {
         if (!roles.contains(role)){
             roles.add(role);
             role.getUsers().add(this);
+        }
+    }
+
+    public void appendRoles(List<Role> roles) {
+        for (Role r : roles){
+            this.appendRole(r);
         }
     }
 
