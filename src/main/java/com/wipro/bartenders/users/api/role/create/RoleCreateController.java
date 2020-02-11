@@ -1,5 +1,6 @@
 package com.wipro.bartenders.users.api.role.create;
 
+import com.wipro.bartenders.users.api.role.common.RolesDetailsDto;
 import com.wipro.bartenders.users.api.role.common.RolesDto;
 import com.wipro.bartenders.users.api.role.common.RoleMapper;
 import com.wipro.bartenders.users.domain.role.Role;
@@ -18,10 +19,10 @@ public class RoleCreateController {
     RoleMapper mapper;
 
     @PostMapping
-    public RoleCreateResponse addRole(@RequestBody RolesDto request) {
+    public RolesDetailsDto addRole(@RequestBody RolesDto request) {
         Role role = mapper.fromDto(request);
         roleCreateService.addRole(role);
-        return (RoleCreateResponse) mapper.toDetailsDto(role);
+        return mapper.toDetailsDto(role);
     }
 
 }

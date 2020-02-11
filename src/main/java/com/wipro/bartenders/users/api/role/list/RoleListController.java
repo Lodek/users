@@ -1,6 +1,7 @@
 package com.wipro.bartenders.users.api.role.list;
 
 import com.wipro.bartenders.users.api.role.common.RoleMapper;
+import com.wipro.bartenders.users.api.role.common.RolesIdDto;
 import com.wipro.bartenders.users.domain.role.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,10 +24,10 @@ public class RoleListController {
     RoleListService roleListService;
 
     @GetMapping
-    public Page<RoleListResponse> listRoles(@RequestParam(defaultValue = "0", name="page") int pageNum,
-                                            @RequestParam(defaultValue = "1", name="results") int pageSize){
+    public Page<RolesIdDto> listRoles(@RequestParam(defaultValue = "0", name="page") int pageNum,
+                                      @RequestParam(defaultValue = "1", name="results") int pageSize){
         pageSize = pageSize > maxPageSize ? maxPageSize : pageSize;
         Page<Role> roles = roleListService.listRoles(PageRequest.of(pageNum, pageSize));
-        return roles.map((role) -> RoleListResponse.class.cast(mapper.toRoleIdDto(role)));
+        return roles.map(mapper::toRoleIdDto);
     }
 }

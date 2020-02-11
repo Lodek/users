@@ -9,4 +9,5 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 public class RolesIdDto  {
+    Long id;
 }

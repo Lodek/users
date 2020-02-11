@@ -1,6 +1,7 @@
 package com.wipro.bartenders.users.api.role.detail;
 
 import com.wipro.bartenders.users.api.role.common.RoleMapper;
+import com.wipro.bartenders.users.api.role.common.RolesDetailsDto;
 import com.wipro.bartenders.users.domain.role.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +20,9 @@ public class RoleDetailController {
     RoleMapper mapper;
 
     @GetMapping("/{id}")
-    public RoleDetailResponse getRole(@PathVariable Long id){
+    public RolesDetailsDto getRole(@PathVariable Long id){
         Role role = roleDetailService.getRole(id);
-        return (RoleDetailResponse) mapper.toDetailsDto(role);
+        return mapper.toDetailsDto(role);
     }
 
 }

@@ -16,6 +16,7 @@ public class RoleDeleteController {
     @DeleteMapping("/{id}")
     public void deleteRole(@PathVariable Long id){
         //TODO: Deleting raises an exception, should add exception handler annotation
+        //TODO: add return of object that was deleted?
         roleDeleteService.deleteRole(id);
     }
 
