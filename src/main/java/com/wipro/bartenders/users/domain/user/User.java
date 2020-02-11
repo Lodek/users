@@ -1,20 +1,22 @@
 package com.wipro.bartenders.users.domain.user;
 
 
+import com.wipro.bartenders.users.domain.role.Role;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
+//TODO: add bean validation
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -31,6 +33,11 @@ public class User {
 
     private String email;
 
+    //TODO: figure out JPA many to many join tables
+    //how to do query since this without double join or join table
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    private List<Role> roles;
+
     public User(long id, String userName, String firstName, String lastName, LocalDate birthDate, String email) {
         this.id = id;
         this.userName = userName;
@@ -40,6 +47,7 @@ public class User {
         this.email = email;
     }
 
+
     public User(String userName, String firstName, String lastName, LocalDate birthDate, String email) {
         this.userName = userName;
         this.firstName = firstName;
@@ -47,8 +55,6 @@ public class User {
         this.birthDate = birthDate;
         this.email = email;
     }
-
-    public User(){}
 
     public static User emptyUser(){
         return new User();
@@ -65,6 +71,22 @@ public class User {
                 Objects.equals(lastName, user.lastName) &&
                 Objects.equals(birthDate, user.birthDate) &&
                 Objects.equals(email, user.email);
+    }
+
+    public void appendRole(Role role){
+        List<Role> roles = this.getRoles();
+        if (!roles.contains(role)){
+            roles.add(role);
+            role.getUsers().add(this);
+        }
+    }
+
+    public void removeRole(Role role){
+        List<Role> roles = this.getRoles();
+        if (roles.contains(role)){
+            roles.remove(role);
+            role.getUsers().remove(this);
+        }
     }
 
 

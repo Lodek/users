@@ -1,12 +1,11 @@
 * questions
 - Should Service tests be rewritten as an  integration test or only the controller?
 - Does it make ssense  to unit test controllers or only integration tests?
-
-* todos
-- Test POJO
-
 - I am writing integration tests at an http packket level, I am bothered that I am not mapping the response json to their corresponding objects.
 Does it make sense to test the JSON directly or is mapping better?
 In one hand it seems like the right thing to do so I can work at a higher level of abstraction for my tests.
 At the same time it's a bit of an overkill, since in theory the controller has been unit tested and in that layer I would test at a responseDto object level.
+
+- @ElementCollection to specify fetchtype
+- Non-owning side (side without the key in many-to-one or one-to-one) or in many-to-many it's arbitraty. Non-owning side uses MappedBy property to make relationship bidirectional 
 

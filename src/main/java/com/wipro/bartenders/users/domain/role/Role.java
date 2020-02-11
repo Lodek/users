@@ -1,16 +1,19 @@
 package com.wipro.bartenders.users.domain.role;
 
+import com.wipro.bartenders.users.domain.user.User;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode
+@NoArgsConstructor
 public class Role {
 
     @Id
@@ -20,7 +23,18 @@ public class Role {
     String name;
     Integer permissionLevel;
 
-    public Role() { }
+    //TODO: Set to eager and figure out JPQL for many to many
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable
+    private List<User> users;
+
+    public void appendUser(User user){
+        user.appendRole(this);
+    }
+
+    public void removeUser(User user){
+        user.removeRole(this);
+    }
 
     public Role(String name, int lvl) {
         this.name = name;
