@@ -1,6 +1,7 @@
 package com.wipro.bartenders.users.domain.user;
 
 
+import com.wipro.bartenders.users.domain.post.Post;
 import com.wipro.bartenders.users.domain.role.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,9 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 //TODO: add bean validation
 
@@ -36,8 +35,12 @@ public class User {
 
     //TODO: figure out JPA many to many join tables
     //how to do query since this without double join or join table
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
-    private List<Role> roles;
+    @ManyToMany(mappedBy = "users")
+    private Set<Role> roles;
+
+    @OneToMany(mappedBy = "op")
+    private Set<Post> posts;
+
 
     public User(long id, String userName, String firstName, String lastName, LocalDate birthDate, String email) {
         this.id = id;
@@ -46,7 +49,7 @@ public class User {
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.email = email;
-        this.roles = new ArrayList<Role>();
+        this.roles = new HashSet<>();
     }
 
 
@@ -76,21 +79,21 @@ public class User {
     }
 
     public void appendRole(Role role){
-        List<Role> roles = this.getRoles();
+        Set<Role> roles = this.getRoles();
         if (!roles.contains(role)){
             roles.add(role);
             role.getUsers().add(this);
         }
     }
 
-    public void appendRoles(List<Role> roles) {
+    public void appendRoles(Set<Role> roles) {
         for (Role r : roles){
             this.appendRole(r);
         }
     }
 
     public void removeRole(Role role){
-        List<Role> roles = this.getRoles();
+        Set<Role> roles = this.getRoles();
         if (roles.contains(role)){
             roles.remove(role);
             role.getUsers().remove(this);
