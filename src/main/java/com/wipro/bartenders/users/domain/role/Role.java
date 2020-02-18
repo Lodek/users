@@ -25,7 +25,7 @@ public class Role {
     Integer permissionLevel;
 
     //TODO: Set to eager and figure out JPQL for many to many
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable
     private List<User> users;
 
