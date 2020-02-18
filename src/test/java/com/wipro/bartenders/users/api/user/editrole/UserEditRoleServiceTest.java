@@ -9,16 +9,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 public class UserEditRoleServiceTest {
-
-
 
     @Test
     public void appendRoles_userWithListOfRolesAndListOfExistingRoles_expectNewRolesToBeSet(){
@@ -40,13 +38,13 @@ class TestSpec {
     UserRepository repository;
 
     User bob;
-    List<Role> newRoles;
-    List<Role> ogRoles;
+    Set<Role> newRoles;
+    Set<Role> ogRoles;
 
     TestSpec() {
         MockitoAnnotations.initMocks(this);
-        newRoles = new ArrayList<Role>();
-        ogRoles = new ArrayList<Role>();
+        newRoles = new HashSet<>();
+        ogRoles = new HashSet<>();
     }
 
 
