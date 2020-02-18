@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -119,14 +119,16 @@ class TestSpec{
     }
 
     TestSpec given_bobs_roles() {
+        Set<User> users = new HashSet<>();
+        users.add(this.bob);
         this.r1 = new Role();
         this.r1.setName("painter");
-        this.r1.setUsers(Arrays.asList(this.bob));
+        this.r1.setUsers(users);
         roleRepository.save(this.r1);
 
         this.r2 = new Role();
         this.r2.setName("bob");
-        this.r2.setUsers(Arrays.asList(this.bob));
+        this.r2.setUsers(users);
         roleRepository.save(this.r2);
 
         return this;

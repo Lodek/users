@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -24,10 +24,9 @@ public class Role {
     String name;
     Integer permissionLevel;
 
-    //TODO: Set to eager and figure out JPQL for many to many
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
-    private List<User> users;
+    private Set<User> users;
 
     public void appendUser(User user){
         user.appendRole(this);
@@ -40,7 +39,7 @@ public class Role {
     public Role(String name, int lvl) {
         this.name = name;
         this.permissionLevel = lvl;
-        this.users = new ArrayList<User>();
+        this.users = new HashSet<>();
     }
 
     public Role update(Role newRole) {
