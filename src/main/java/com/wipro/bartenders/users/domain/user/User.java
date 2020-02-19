@@ -19,6 +19,11 @@ import java.util.*;
 @NoArgsConstructor
 public class User {
 
+    {
+        this.roles = new HashSet<>();
+        this.posts = new HashSet<>();
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
@@ -96,7 +101,6 @@ public class User {
         Set<Role> roles = this.getRoles();
         if (roles.contains(role)){
             roles.remove(role);
-            role.getUsers().remove(this);
         }
     }
 
@@ -124,4 +128,8 @@ public class User {
         return this;
     }
 
+    public void addRole(Role role) {
+        Set<Role> roles = this.getRoles();
+        roles.add(role);
+    }
 }
