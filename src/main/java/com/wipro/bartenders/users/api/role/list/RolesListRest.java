@@ -1,33 +1,27 @@
 package com.wipro.bartenders.users.api.role.list;
 
-import com.wipro.bartenders.users.api.role.common.RoleMapper;
-import com.wipro.bartenders.users.api.role.common.RolesIdDto;
 import com.wipro.bartenders.users.domain.role.Role;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/roles")
-public class RoleListController {
-
-    private final static int maxPageSize = 1;
+public class RolesListRest {
 
     @Autowired
-    RoleMapper mapper;
+    RolesListMapper mapper;
 
     @Autowired
-    RoleListService roleListService;
+    RolesListService service;
 
     @GetMapping
-    public Page<RolesIdDto> listRoles(@RequestParam(defaultValue = "0", name="page") int pageNum,
-                                      @RequestParam(defaultValue = "1", name="results") int pageSize){
-        pageSize = pageSize > maxPageSize ? maxPageSize : pageSize;
-        Page<Role> roles = roleListService.listRoles(PageRequest.of(pageNum, pageSize));
-        return roles.map(mapper::toRoleIdDto);
+    public Iterable<RolesListResponse> listRoles(){
+        List<Role> roles = service.listRoles();
+        return roles.stream().map(mapper::roleToResponse).collect(Collectors.toList());
     }
 }
