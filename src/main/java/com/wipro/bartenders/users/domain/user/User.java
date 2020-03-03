@@ -129,7 +129,6 @@ public class User {
     }
 
     public void addRole(Role role) {
-        Set<Role> roles = this.getRoles();
-        roles.add(role);
+        this.roles.add(role);
     }
 }

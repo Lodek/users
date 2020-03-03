@@ -27,8 +27,10 @@ public class UsersApplication {
 			User user2 = new User(2, "trillian2", "Tricia2", "McMillan2", dob, "tricia42_2@dolphins.com");
 			userRepository.save(user1);
 			userRepository.save(user2);
-			Role role1 = new Role("root", 0);
-			Role role2 = new Role("read", 1);
+			Role role1 = new Role();
+			role1.setName("root");
+			Role role2 = new Role();
+			role2.setName("read");
 			roleRepository.saveAll(Arrays.asList(role1, role2));
 		};
 	}

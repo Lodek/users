@@ -1,19 +1,13 @@
 package com.wipro.bartenders.users.domain.role;
 
 import com.wipro.bartenders.users.domain.user.User;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
 public class Role {
 
@@ -22,7 +16,6 @@ public class Role {
     Long id;
 
     String name;
-    Integer permissionLevel;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
@@ -36,22 +29,4 @@ public class Role {
         user.removeRole(this);
     }
 
-    public Role(String name, int lvl) {
-        this.name = name;
-        this.permissionLevel = lvl;
-        this.users = new HashSet<>();
-    }
-
-    public Role update(Role newRole) {
-        String name = newRole.getName();
-        if (name != null && !name.isEmpty()){
-            this.setName(name);
-        }
-
-        Integer permissionLevel = newRole.getPermissionLevel();
-        if (permissionLevel != null){
-            this.setPermissionLevel(permissionLevel);
-        }
-        return this;
-    }
 }
