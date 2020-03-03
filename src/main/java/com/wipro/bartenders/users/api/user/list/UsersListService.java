@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @Setter
-public class UserListService {
+public class UsersListService {
 
     @Autowired
     private UserRepository userRepository;

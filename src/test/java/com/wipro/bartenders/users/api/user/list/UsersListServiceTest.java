@@ -19,7 +19,7 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
 
 
-public class UserListServiceTest {
+public class UsersListServiceTest {
 
     @Test
     public void getUsers_requestPageOfUsers_returnPageable(){
@@ -35,7 +35,7 @@ public class UserListServiceTest {
 class TestSpec{
 
     @InjectMocks
-    UserListService service;
+    UsersListService service;
 
     @Mock
     UserRepository repository;
