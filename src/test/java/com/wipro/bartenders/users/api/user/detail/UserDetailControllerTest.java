@@ -118,7 +118,6 @@ class TestSp {
         //for that feels like breaking encapsulation...
         //calling userDeleteService here seems odd because
         //it increases the ammount of dependencies for the test?
-
         this.id = id;
         return this;
     }

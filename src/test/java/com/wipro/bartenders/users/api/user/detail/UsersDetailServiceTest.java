@@ -13,7 +13,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
-public class UserDetailServiceTest {
+public class UsersDetailServiceTest {
 
     @Test
     public void getUser_requestValidId_ReturnAssociatedUser(){
@@ -38,7 +38,7 @@ public class UserDetailServiceTest {
 class TestSpec{
 
     @InjectMocks
-    UserDetailService service;
+    UsersDetailService service;
 
     @Mock
     UserRepository repository;
@@ -59,7 +59,7 @@ class TestSpec{
     }
 
     TestSpec when_getting_user_with_id(Long id){
-        returnedUser = service.getUser(id);
+        returnedUser = service.getById(id);
         return this;
     }
 
@@ -75,7 +75,7 @@ class TestSpec{
 
     TestSpec when_requested_user_with_invalid_id(Long id) {
         try {
-            service.getUser(id);
+            service.getById(id);
         } catch (RuntimeException e) {
             exception = e;
         }
