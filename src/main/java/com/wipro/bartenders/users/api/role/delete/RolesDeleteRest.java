@@ -1,0 +1,24 @@
+package com.wipro.bartenders.users.api.role.delete;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/roles")
+public class RolesDeleteRest {
+
+    @Autowired
+    RoleDeleteService roleDeleteService;
+
+    @DeleteMapping("/{id}")
+    public void deleteRole(@PathVariable Long id){
+        //TODO: Deleting raises an exception, should add exception handler annotation
+        //TODO: add return of object that was deleted?
+        roleDeleteService.deleteRole(id);
+    }
+
+}
+
