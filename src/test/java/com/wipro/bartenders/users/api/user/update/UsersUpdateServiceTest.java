@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
-public class UserUpdateServiceTest {
+public class UsersUpdateServiceTest {
 
     @Test
     public void updateUser_validUserIdAndUpdateUserObject_ShouldOnlyOverwriteSetProperties(){
@@ -31,7 +31,7 @@ public class UserUpdateServiceTest {
 class TestSpec{
 
     @InjectMocks
-    UserUpdateService service;
+    UsersUpdateService service;
 
     @Mock
     UserRepository userRepository;
