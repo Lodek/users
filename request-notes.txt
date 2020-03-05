@@ -1,0 +1,5 @@
+- request headers injected
+- exception handler receives arguments injected
+- auditrequestwrapper: httpserveletrequestwarpper, inputstream - request data in buffer, must be saved as instance variable,
+- builder -> defined as bean in @configuration class, lambda that returns object
+- cache implement

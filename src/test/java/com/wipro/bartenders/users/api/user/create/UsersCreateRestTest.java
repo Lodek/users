@@ -1,7 +1,6 @@
 package com.wipro.bartenders.users.api.user.create;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wipro.bartenders.users.api.user.common.UsersDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +13,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -51,7 +52,7 @@ class TestSp {
 
     MockMvc mockMvc;
 
-    UsersDto requestDto;
+    UsersCreateRequest requestDto;
     MvcResult response;
     ResultActions result;
 
@@ -68,12 +69,12 @@ class TestSp {
     }
 
     TestSp given_request_json(){
-        requestDto = new UsersDto();
+        requestDto = new UsersCreateRequest();
         requestDto.setUserName("bob.ross");
         requestDto.setFirstName("Bob");
         requestDto.setLastName("Ross");
         requestDto.setEmail("bob.ross@email.com");
-        requestDto.setBirthDate("1990-12-20");
+        requestDto.setBirthDate(LocalDate.of(1990, 12, 20));
         return this;
     }
 

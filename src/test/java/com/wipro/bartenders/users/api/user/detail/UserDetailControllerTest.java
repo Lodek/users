@@ -1,7 +1,6 @@
 package com.wipro.bartenders.users.api.user.detail;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wipro.bartenders.users.api.user.common.UsersDetailsDto;
 import com.wipro.bartenders.users.domain.user.User;
 import com.wipro.bartenders.users.domain.user.UserRepository;
 import org.junit.Test;
@@ -17,7 +16,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -69,7 +67,7 @@ class TestSp {
     Long id;
     private ResultActions result;
     private MvcResult response;
-    private UsersDetailsDto expectedResponse;
+    private UsersDetailResponse expectedResponse;
     private User user;
 
     TestSp(WebApplicationContext wac, UserRepository userRepository){
@@ -85,11 +83,11 @@ class TestSp {
         LocalDate dob = LocalDate.of(0,1,1);
         String email = "david.jon@email.com";
         this.user = new User(id, userName, firstName, lastName, dob, email);
-        expectedResponse = new UsersDetailsDto();
+        expectedResponse = new UsersDetailResponse();
         expectedResponse.setUserName(userName);
         expectedResponse.setFirstName(firstName);
         expectedResponse.setLastName(lastName);
-        expectedResponse.setBirthDate(dob.format(DateTimeFormatter.ISO_DATE));
+        expectedResponse.setBirthDate(dob);
         expectedResponse.setFirstName(firstName);
         expectedResponse.setEmail(email);
         expectedResponse.setId(user.getId());
