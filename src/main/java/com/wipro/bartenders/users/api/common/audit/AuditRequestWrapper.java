@@ -1,6 +1,8 @@
 package com.wipro.bartenders.users.api.common.audit;
 
-public class AuditRequestWrapper {
+import javax.servlet.http.HttpServletRequestWrapper;
+
+public class AuditRequestWrapper extends HttpServletRequestWrapper {
     auditEnable :boolean
 
     auditRequestHeaders :AuditRequestHeaders
