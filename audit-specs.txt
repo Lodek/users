@@ -1,0 +1,272 @@
+
+
+
+Add to rest method
+
+
+
+@RequestHeader(value = ClaimRequestHeaders.HEADER_NAME_SIMULATE, required = false, defaultValue = "true") String mockTransactionHeader,
+
+@RequestHeader(value = ClaimRequestHeaders.HEADER_NAME_SAVE_AUDIT_DATA, required = false, defaultValue = "true") String saveAuditData,
+
+@RequestHeader(value = ClaimRequestHeaders.HEADER_CORRELATION_ID, required = false) String correlationId,
+
+@RequestHeader(value = ClaimRequestHeaders.HEADER_NAME_USER_ID, required = false, defaultValue = "dummy"
+
+
+
+- Create class
+
+BaseRequest - all request objects must extend from it
+
+               ApiModelProperty(hidden = true)
+
+               correlationId : String
+
+
+
+               ApiModelProperty(hidden = true)
+
+               mock : String
+
+
+
+               ApiModelProperty(hidden = true)
+
+               requestId : String
+
+
+
+               ApiModelProperty(hidden = true)
+
+               saveAuditData : String
+
+
+
+               ApiModelProperty(hidden = true)
+
+               userId : String
+
+
+
+// define the method
+
+AuditBodyAction Interface
+
+               void auditBody(AuditRequestHeaders auditRequestHeaders, String body, String requestPath, String requestHttpMethod, int responseStatusCode, boolean isRequestType, boolean isParentRequest);
+
+
+
+
+
+AuditBodyUtil
+
+               getHeaderValue(HttpHeaders, String)
+
+               getResponseStatusCode(ServerHttpResponse)
+
+               isAuditEnable(HttpHeaders)
+
+               isAuditEnabled(HttpHeaders)
+
+               parseToJsonStringWithoutIgnoredFields(Object, List<String>)
+
+               readBody(HttpServletRequest)
+
+               removeIgnoredFields(JsonNode, List<String>)
+
+               removeIgnoredFields(String, List<String>)
+
+               toAuditRequestHeaders(HttpHeaders, AuditRequestHeadersBuilder)
+
+
+
+AuditConstants
+
+    public static final String YES_SW = "Y";
+
+    public static final String NO_SW = "N";
+
+
+
+    public static final String TRUE_SW = "true";
+
+    public static final String FALSE_SW = "false";
+
+
+
+    public static final String REQUEST_SW = "REQ";
+
+    public static final String RESPONSE_SW = "RSP";
+
+
+
+    public static final String SIMULATED = "true";
+
+    public static final String SUCCESS = "success";
+
+    public static final String FAILED = "failed";
+
+
+
+AuditHeadersArgumentResolverConfig implements WebMvcConfigurer
+
+               public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+
+        argumentResolvers.add(new AuditHeadersArgumentResolver());
+
+    }
+
+               inner class
+
+                              public class AuditHeadersArgumentResolver implements HandlerMethodArgumentResolver
+
+
+
+
+
+AuditRequestBodyAdvice implements RequestBodyAdvice
+
+               auditRequestBodyHandler : AuditRequestBodyHandler
+
+               auditRequestHeadersBuilder : AuditRequestHeadersBuilder
+
+               handleBody(Object, HttpInputMessage, MethodParameter): Object
+
+
+
+AuditRequestBodyHandler interface
+
+               handleBody(AuditRequestHeaders auditRequestHeaders, Object body, MethodParameter methodParameter): Object
+
+
+
+AuditRequestFilter extends GenericFilterBean
+
+               auditBodyAction : AuditBodyAction
+
+               auditIgnoredFields : List<String>
+
+               auditRequestHeadersBuilder : AuditRequestHeadersBuilder
+
+               auditSupportValidator : AuditSupportValidator
+
+               hexResourceIdGenerator : ResourceIdGenerator
+
+
+
+AuditRequestHeaders
+
+               correlationId : String
+
+               requestId : String
+
+               saveAuditData : String
+
+               simulated : String
+
+               userId : String
+
+
+
+AuditRequestHeadersBuilder interface
+
+               AuditRequestHeaders build(String simulated, String userId, String requestId, String correlationId, String saveAuditData);
+
+
+
+AuditRequestHeadersConstants
+
+
+
+    public static final String HEADER_RQST_ID = "rqst-id";
+
+    public static final String HEADER_CORRELATION_ID = "correlation-id";
+
+    public static final String HEADER_SIMULATE = "simulate";
+
+    public static final String HEADER_SAVE_AUDIT_DATA = "saveAuditData";
+
+    public static final String HEADER_USER_ID = "x-user";
+
+    public static final String HEADER_AUDIT_ENABLED = "audit-enabled";
+
+
+
+AuditRequestWrapper extends HttpServletRequestWrapper
+
+               auditEnable : boolean
+
+               auditRequestHeaders : AuditRequestHeaders
+
+               body : String
+
+               headerMap : Map<String, String>
+
+               inner class public ServletInputStream getInputStream() throws IOException {
+
+
+
+AuditResponseBodyAdvice implements ResponseBodyAdvice<Object>
+
+               auditBodyAction : AuditBodyAction
+
+               auditIgnoredFields : List<String>
+
+               auditRequestHeadersBuilder : AuditRequestHeadersBuilder
+
+
+
+AuditSupportValidator interface
+
+               boolean isSuported(String path, String method);
+
+
+
+AuditIgnoredFieldsEnum
+
+   FILE("file"),
+
+    DOCUMENT("document"),
+
+    FILE_ATTACHMENT("fileAttachment");
+
+
+
+AuditConfiguration
+
+               @Value("${data.audit.defaultSaveAuditData:true}")
+
+               defaultSaveAuditData : String
+
+               auditBodyAction(AuditBodyService, AuditSupportValidator)
+
+               auditIgnoredFields()
+
+               auditRequestBodyHandler()
+
+               auditRequestHeadersBuilder()
+
+               auditSupportValidator(AuditBodyService)
+
+
+
+AuditService Entity
+
+               id : Long
+
+               name : String
+
+               path : String
+
+               method : String
+
+               description : String
+
+
+
+AuditServiceRepository
+
+               @Cacheable("servRepository.findByPathAndMethod")
+
+    Optional<Serv> findByPathAndMethod(String path, String method);
