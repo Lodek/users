@@ -3,19 +3,18 @@ package com.wipro.bartenders.users.domain.user;
 
 import com.wipro.bartenders.users.domain.post.Post;
 import com.wipro.bartenders.users.domain.role.Role;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 //TODO: add bean validation
 
-@Getter
-@Setter
 @Entity
+@Data
 @NoArgsConstructor
 public class User {
 
@@ -68,19 +67,6 @@ public class User {
 
     public static User emptyUser(){
         return new User();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(userName, user.userName) &&
-                Objects.equals(firstName, user.firstName) &&
-                Objects.equals(lastName, user.lastName) &&
-                Objects.equals(birthDate, user.birthDate) &&
-                Objects.equals(email, user.email);
     }
 
     public void appendRole(Role role){
