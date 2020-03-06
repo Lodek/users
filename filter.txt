@@ -1,0 +1,3 @@
+- Filter seems to be executed at the end of the chain
+- Audit will only log valid end points defined by the isValid method (use enum or something)
+-
