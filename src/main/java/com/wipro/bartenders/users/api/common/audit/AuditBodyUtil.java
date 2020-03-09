@@ -1,22 +1,49 @@
 package com.wipro.bartenders.users.api.common.audit;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.server.reactive.ServerHttpResponse;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 public class AuditBodyUtil {
-    getHeaderValue(HttpHeaders, String)
+    public String getHeaderValue(HttpHeaders headers, String name){
+        return headers.getFirst(name);
+    }
 
-    getResponseStatusCode(ServerHttpResponse)
+    public int getResponseStatusCode(ServerHttpResponse response){
+        return response.getStatusCode().value();
+    }
 
-    isAuditEnable(HttpHeaders)
+    public boolean isAuditEnable(HttpHeaders headers){
+        String value = getHeaderValue(headers, AuditRequestHeadersConstants.HEADER_AUDIT_ENABLED);
+        return value.equals(AuditConstants.TRUE_SW);
+    }
 
-    isAuditEnabled(HttpHeaders)
+    public boolean isAuditEnabled(HttpHeaders headers){
+        String value = getHeaderValue(headers, AuditRequestHeadersConstants.HEADER_AUDIT_ENABLED);
+        return value.equals(AuditConstants.TRUE_SW);
+    }
 
-    parseToJsonStringWithoutIgnoredFields(Object, List<String>)
+    String parseToJsonStringWithoutIgnoredFields(Object o, List<String> ignoredFields){
+        return null;
+    }
 
-    readBody(HttpServletRequest)
+    public String readBody(HttpServletRequest request){
+        return null;
+    }
 
-    removeIgnoredFields(JsonNode, List<String>)
+    public JsonNode removeIgnoredFields(JsonNode json, List<String> ignoredFields){
+        return null;
+    }
 
-    removeIgnoredFields(String, List<String>)
+    public String removeIgnoredFields(String json, List<String> ignoredFields){
+        return null;
+    }
 
-    toAuditRequestHeaders(HttpHeaders, AuditRequestHeadersBuilder)
+    public AuditRequestHeaders toAuditRequestHeaders(HttpHeaders headers, AuditRequestHeadersBuilder builder){
+        return null;
+    }
 
 }

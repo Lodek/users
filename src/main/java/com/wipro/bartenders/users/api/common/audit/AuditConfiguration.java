@@ -1,25 +1,38 @@
 package com.wipro.bartenders.users.api.common.audit;
 
-import javafx.beans.DefaultProperty;
-import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.annotation.AccessType;
 
 @Configuration
 public class AuditConfiguration {
+
     //@Value("${data.audit.defaultSaveAuditData:true}")
+    String defaultSaveAuditData;
 
-    defaultSaveAuditData : String
+    @Bean
+    AuditBodyAction auditBodyAction(AuditBodyService serv, AuditSupportValidator validator){
+        return null;
+    }
 
-    auditBodyAction(AuditBodyService, AuditSupportValidator)
+    AuditIgnoredFieldsEnum auditIgnoredFields(){
+        return null;
+    }
 
-    auditIgnoredFields()
+    @Bean
+    AuditRequestBodyHandler auditRequestBodyHandler(){
+        return null;
+    }
 
-    auditRequestBodyHandler()
+    AuditRequestHeadersBuilder auditRequestHeadersBuilder(){
+        return null;
+    }
 
-    auditRequestHeadersBuilder()
 
-    auditSupportValidator(AuditBodyService)
+    @Bean
+    AuditSupportValidator auditSupportValidator(AuditBodyService serv){
+        return null;
+    }
 
+    private class AuditBodyService {
+    }
 }

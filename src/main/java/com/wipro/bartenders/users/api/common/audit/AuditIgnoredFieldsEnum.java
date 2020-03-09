@@ -7,10 +7,14 @@ public enum AuditIgnoredFieldsEnum {
 
     FILE_ATTACHMENT("fileAttachment");
 
-    public final String value;
+    private final String field;
 
 
     AuditIgnoredFieldsEnum(String field) {
-        this.value = field;
+        this.field = field;
+    }
+
+    public String field(){
+        return this.field;
     }
 }

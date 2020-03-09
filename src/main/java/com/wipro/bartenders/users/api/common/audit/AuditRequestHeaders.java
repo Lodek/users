@@ -1,14 +1,17 @@
 package com.wipro.bartenders.users.api.common.audit;
 
+import lombok.Data;
+
+@Data
 public class AuditRequestHeaders {
-    correlationId : String
+    private String correlationId;
 
-    requestId : String
+    private String requestId;
 
-    saveAuditData : String
+    private String saveAuditData;
 
-    simulated : String
+    private String simulated;
 
-    userId : String
+    private String userId;
 
 }

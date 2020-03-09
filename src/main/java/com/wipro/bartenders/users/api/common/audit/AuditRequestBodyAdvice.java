@@ -14,10 +14,27 @@ public class AuditRequestBodyAdvice implements RequestBodyAdvice {
 
     AuditRequestHeadersBuilder auditRequestHeadersBuilder;
 
-    Object handleBody(Object o, HttpInputMessage inputMessage, MethodParameter param);
+    public Object handleBody(Object o, HttpInputMessage inputMessage, MethodParameter param){
+        return o;
+    }
+
+    @Override
+    public boolean supports(MethodParameter methodParameter, Type type, Class<? extends HttpMessageConverter<?>> aClass) {
+        return false;
+    }
 
     @Override
     public HttpInputMessage beforeBodyRead(HttpInputMessage httpInputMessage, MethodParameter methodParameter, Type type, Class<? extends HttpMessageConverter<?>> aClass) throws IOException {
         return null;
+    }
+
+    @Override
+    public Object afterBodyRead(Object o, HttpInputMessage httpInputMessage, MethodParameter methodParameter, Type type, Class<? extends HttpMessageConverter<?>> aClass) {
+        return o;
+    }
+
+    @Override
+    public Object handleEmptyBody(Object o, HttpInputMessage httpInputMessage, MethodParameter methodParameter, Type type, Class<? extends HttpMessageConverter<?>> aClass) {
+        return o;
     }
 }

@@ -1,4 +1,19 @@
 package com.wipro.bartenders.users.api.common.audit;
 
-public class AuditResponseBodyAdvice {
+import org.springframework.core.MethodParameter;
+import org.springframework.http.MediaType;
+import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+
+public class AuditResponseBodyAdvice implements ResponseBodyAdvice {
+    @Override
+    public boolean supports(MethodParameter methodParameter, Class aClass) {
+        return false;
+    }
+
+    @Override
+    public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+        return null;
+    }
 }
