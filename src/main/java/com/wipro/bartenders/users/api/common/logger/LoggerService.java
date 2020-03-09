@@ -1,8 +1,17 @@
 package com.wipro.bartenders.users.api.common.logger;
 
-public interface LoggerService {
+import org.springframework.stereotype.Component;
 
-    void logRequest();
-    void logResponse();
-    void logMessage();
+@Component
+public class LoggerService {
+
+    public void logRequest(String body, String requestId, String headers, String resourcePath, String method){
+
+    }
+    public void logResponse(String requestId, int responseStatusCode){
+
+    }
+    public void logMessage(){
+
+    }
 }

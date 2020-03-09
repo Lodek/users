@@ -1,5 +1,6 @@
 package com.wipro.bartenders.users.api.common.audit;
 
+import com.wipro.bartenders.users.api.common.logger.LoggerService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,16 +10,24 @@ public class AuditConfiguration {
     //@Value("${data.audit.defaultSaveAuditData:true}")
     String defaultSaveAuditData;
 
+
     @Bean
-    AuditBodyAction auditBodyAction(AuditBodyService serv, AuditSupportValidator validator){
-        return null;
+    AuditBodyAction auditBodyAction(LoggerService logger, AuditSupportValidator validator){
+        return new AuditBodyAction() {
+            @Override
+            public void auditBody(AuditRequestHeaders auditRequestHeaders, String body, String requestPath, String requestHttpMethod, int responseStatusCode, boolean isRequestType, boolean isParentRequest) {
+                if (validator.isSupported(requestPath, requestHttpMethod)){
+                    logger.logRequest(body, auditRequestHeaders.getRequestId(), "", requestPath, requestHttpMethod);
+                    logger.logResponse(auditRequestHeaders.getRequestId(), responseStatusCode);
+                }
+            }
+        };
     }
 
     AuditIgnoredFieldsEnum auditIgnoredFields(){
         return null;
     }
 
-    @Bean
     AuditRequestBodyHandler auditRequestBodyHandler(){
         return null;
     }
@@ -28,11 +37,8 @@ public class AuditConfiguration {
     }
 
 
-    @Bean
-    AuditSupportValidator auditSupportValidator(AuditBodyService serv){
+    AuditSupportValidator auditSupportValidator(AuditSupportValidator validator){
         return null;
     }
 
-    private class AuditBodyService {
-    }
 }

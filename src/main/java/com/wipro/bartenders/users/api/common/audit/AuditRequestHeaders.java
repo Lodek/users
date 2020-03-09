@@ -1,9 +1,12 @@
 package com.wipro.bartenders.users.api.common.audit;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class AuditRequestHeaders {
+
     private String correlationId;
 
     private String requestId;

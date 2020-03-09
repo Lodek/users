@@ -8,41 +8,41 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class AuditBodyUtil {
-    public String getHeaderValue(HttpHeaders headers, String name){
+    public static String getHeaderValue(HttpHeaders headers, String name){
         return headers.getFirst(name);
     }
 
-    public int getResponseStatusCode(ServerHttpResponse response){
+    public static int getResponseStatusCode(ServerHttpResponse response){
         return response.getStatusCode().value();
     }
 
-    public boolean isAuditEnable(HttpHeaders headers){
+    public static boolean isAuditEnable(HttpHeaders headers){
         String value = getHeaderValue(headers, AuditRequestHeadersConstants.HEADER_AUDIT_ENABLED);
         return value.equals(AuditConstants.TRUE_SW);
     }
 
-    public boolean isAuditEnabled(HttpHeaders headers){
+    public static boolean isAuditEnabled(HttpHeaders headers){
         String value = getHeaderValue(headers, AuditRequestHeadersConstants.HEADER_AUDIT_ENABLED);
         return value.equals(AuditConstants.TRUE_SW);
     }
 
-    String parseToJsonStringWithoutIgnoredFields(Object o, List<String> ignoredFields){
+    public static String parseToJsonStringWithoutIgnoredFields(Object o, List<String> ignoredFields){
         return null;
     }
 
-    public String readBody(HttpServletRequest request){
+    public static String readBody(HttpServletRequest request){
         return null;
     }
 
-    public JsonNode removeIgnoredFields(JsonNode json, List<String> ignoredFields){
+    public static JsonNode removeIgnoredFields(JsonNode json, List<String> ignoredFields){
         return null;
     }
 
-    public String removeIgnoredFields(String json, List<String> ignoredFields){
+    public static String removeIgnoredFields(String json, List<String> ignoredFields){
         return null;
     }
 
-    public AuditRequestHeaders toAuditRequestHeaders(HttpHeaders headers, AuditRequestHeadersBuilder builder){
+    public static AuditRequestHeaders toAuditRequestHeaders(HttpHeaders headers, AuditRequestHeadersBuilder builder){
         return null;
     }
 

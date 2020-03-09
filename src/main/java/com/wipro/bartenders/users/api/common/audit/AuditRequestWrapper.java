@@ -1,11 +1,16 @@
 package com.wipro.bartenders.users.api.common.audit;
 
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-import java.io.IOException;
-import java.util.Map;
+        import lombok.Getter;
+        import lombok.Setter;
 
+        import javax.servlet.ServletInputStream;
+        import javax.servlet.http.HttpServletRequest;
+        import javax.servlet.http.HttpServletRequestWrapper;
+        import java.io.IOException;
+        import java.util.Map;
+
+@Getter
+@Setter
 public class AuditRequestWrapper extends HttpServletRequestWrapper {
 
     private boolean auditEnable;
@@ -20,7 +25,7 @@ public class AuditRequestWrapper extends HttpServletRequestWrapper {
         super(request);
     }
 
-    public ServletInputStream getInputStream () throws IOException {
+    public ServletInputStream getInputStream() throws IOException {
         return null;
     }
 }
