@@ -1,8 +1,10 @@
 package com.wipro.bartenders.users.api.common.audit;
 
+import com.wipro.bartenders.users.api.common.BaseRequest;
 import com.wipro.bartenders.users.api.common.logger.LoggerService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.MethodParameter;
 
 @Configuration
 public class AuditConfiguration {
@@ -28,8 +30,27 @@ public class AuditConfiguration {
         return null;
     }
 
+    @Bean
     AuditRequestBodyHandler auditRequestBodyHandler(){
-        return null;
+        return new AuditRequestBodyHandler() {
+            @Override
+            public Object handleBody(AuditRequestHeaders auditRequestHeaders, Object body, MethodParameter methodParameter) {
+                try {
+                    if (body == null) {
+                        body = methodParameter.getParameterType().newInstance();
+                    }
+                } catch (Exception e) {
+
+                }
+                BaseRequest obj = (BaseRequest) body;
+                obj.setCorrelationId(auditRequestHeaders.getCorrelationId());
+                obj.setMock(auditRequestHeaders.getSimulated());
+                obj.setRequestId(auditRequestHeaders.getRequestId());
+                obj.setSaveAuditData(auditRequestHeaders.getSaveAuditData());
+                obj.setUserId(auditRequestHeaders.getUserId());
+                return obj;
+            }
+        };
     }
 
     AuditRequestHeadersBuilder auditRequestHeadersBuilder(){
@@ -37,8 +58,9 @@ public class AuditConfiguration {
     }
 
 
+    @Bean
     AuditSupportValidator auditSupportValidator(AuditSupportValidator validator){
-        return null;
+        return new AuditSupportValidator();
     }
 
 }

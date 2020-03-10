@@ -16,5 +16,4 @@ public class AuditRequestHeaders {
     private String simulated;
 
     private String userId;
-
 }

@@ -5,7 +5,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 
 public class AuditBodyUtil {
     public static String getHeaderValue(HttpHeaders headers, String name){
@@ -30,8 +32,9 @@ public class AuditBodyUtil {
         return null;
     }
 
-    public static String readBody(HttpServletRequest request){
-        return null;
+    public static String readBody(HttpServletRequest request) throws IOException {
+        Scanner s = new Scanner(request.getInputStream());
+        return s.useDelimiter("\\A").next();
     }
 
     public static JsonNode removeIgnoredFields(JsonNode json, List<String> ignoredFields){

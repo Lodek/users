@@ -1,13 +1,13 @@
 package com.wipro.bartenders.users.api.common.audit;
 
-        import lombok.Getter;
-        import lombok.Setter;
+import lombok.Getter;
+import lombok.Setter;
 
-        import javax.servlet.ServletInputStream;
-        import javax.servlet.http.HttpServletRequest;
-        import javax.servlet.http.HttpServletRequestWrapper;
-        import java.io.IOException;
-        import java.util.Map;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import java.io.IOException;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -21,8 +21,9 @@ public class AuditRequestWrapper extends HttpServletRequestWrapper {
 
     private Map<String, String> headerMap;
 
-    public AuditRequestWrapper(HttpServletRequest request) {
+    public AuditRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
+        this.body = AuditBodyUtil.readBody(request);
     }
 
     public ServletInputStream getInputStream() throws IOException {

@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -53,21 +54,20 @@ public class AuditRequestFilter extends GenericFilterBean {
 
         headersMap.forEach((key, value) -> headersMap.put(key, req.getHeader(key)));
 
-        //auditRequestHeadersBuilder.build()
-
         AuditRequestWrapper request = new AuditRequestWrapper((HttpServletRequest) servletRequest);
         request.setBody(body);
         request.setAuditEnable(auditEnabled);
         request.setHeaderMap(headersMap);
 
 
-
-
-
         filterChain.doFilter(servletRequest, servletResponse);
 
-        //auditBodyAction.auditBody();
-
+        HttpServletResponse filteredResponse = (HttpServletResponse) servletResponse;
+        AuditRequestWrapper processedRequest = (AuditRequestWrapper) servletRequest;
+        auditBodyAction.auditBody(processedRequest.getAuditRequestHeaders(),
+                processedRequest.getBody(), requestUri, method,
+                filteredResponse.getStatus(),
+                true, true);
     }
 
 
