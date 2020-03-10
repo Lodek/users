@@ -6,12 +6,14 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class AuditBodyUtil {
     public static String getHeaderValue(HttpHeaders headers, String name){
-        return headers.getFirst(name);
+        return String.join(",", headers.get(name));
     }
 
     public static int getResponseStatusCode(ServerHttpResponse response){
@@ -48,5 +50,18 @@ public class AuditBodyUtil {
     public static AuditRequestHeaders toAuditRequestHeaders(HttpHeaders headers, AuditRequestHeadersBuilder builder){
         return null;
     }
+
+    public static String defaultIfEmpty(String target, String backup){
+        return (target == null || target.isEmpty()) ? backup : target;
+    }
+
+    public static <T> Set<T> setOf(T ... args){
+        Set<T> set = new HashSet<>();
+        for (T t : args){
+            set.add(t);
+        }
+        return set;
+    }
+
 
 }

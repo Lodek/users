@@ -1,5 +1,6 @@
 package com.wipro.bartenders.users.api.common.audit;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpInputMessage;
@@ -10,20 +11,25 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
+import static com.wipro.bartenders.users.api.common.audit.AuditBodyUtil.getHeaderValue;
+
 @ControllerAdvice
 public class AuditRequestBodyAdvice implements RequestBodyAdvice {
 
+    @Autowired
     AuditRequestBodyHandler auditRequestBodyHandler;
 
+    @Autowired
     AuditRequestHeadersBuilder auditRequestHeadersBuilder;
 
     public Object handleBody(Object o, HttpInputMessage inputMessage, MethodParameter param){
         HttpHeaders headers = inputMessage.getHeaders();
-        AuditRequestHeaders auditHeaders = auditRequestHeadersBuilder.build(headers.getFirst(AuditRequestHeadersConstants.HEADER_SIMULATE),
-                headers.getFirst(AuditRequestHeadersConstants.HEADER_USER_ID),
-                headers.getFirst(AuditRequestHeadersConstants.HEADER_RQST_ID),
-                headers.getFirst(AuditRequestHeadersConstants.HEADER_CORRELATION_ID),
-                headers.getFirst(AuditRequestHeadersConstants.HEADER_SAVE_AUDIT_DATA));
+        AuditRequestHeaders auditHeaders = auditRequestHeadersBuilder.build(getHeaderValue(headers, AuditRequestHeadersConstants.HEADER_SIMULATE),
+                getHeaderValue(headers, AuditRequestHeadersConstants.HEADER_USER_ID),
+                getHeaderValue(headers, AuditRequestHeadersConstants.HEADER_RQST_ID),
+                getHeaderValue(headers, AuditRequestHeadersConstants.HEADER_CORRELATION_ID),
+                getHeaderValue(headers, AuditRequestHeadersConstants.HEADER_SAVE_AUDIT_DATA));
+
         return auditRequestBodyHandler.handleBody(auditHeaders, o, param);
     }
 
