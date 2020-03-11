@@ -11,63 +11,49 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class AuditRequestFilter extends GenericFilterBean {
 
+    @Autowired
     AuditBodyAction auditBodyAction;
 
+    @Autowired
     List<String> auditIgnoredFields;
 
+    @Autowired
     AuditRequestHeadersBuilder auditRequestHeadersBuilder;
 
     @Autowired
     AuditSupportValidator auditSupportValidator;
 
+    @Autowired
     ResourceIdGenerator hexResourceIdGenerator;
 
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
-        AuditBodyUtil util;
+        try{
+            AuditRequestWrapper req = new AuditRequestWrapper((HttpServletRequest) servletRequest);
+            AuditRequestHeaders headers = auditRequestHeadersBuilder.build(null, null,
+                hexResourceIdGenerator.getId(req), null, null);
+            req.setAuditRequestHeaders(headers);
 
-        HttpServletRequest req = (HttpServletRequest) servletRequest;
+            //boolean auditEnabled = auditSupportValidator.isSupported(requestUri, method);
 
-        String method = req.getMethod();
-        String requestUri = req.getRequestURI();
+            filterChain.doFilter(servletRequest, servletResponse);
 
-        boolean auditEnabled = auditSupportValidator.isSupported(requestUri, method);
+            HttpServletResponse filteredResponse = (HttpServletResponse) servletResponse;
+            AuditRequestWrapper processedRequest = (AuditRequestWrapper) servletRequest;
+            //auditBodyAction.auditBody(processedRequest.getAuditRequestHeaders(), processedRequest.getBody(), requestUri, method, filteredResponse.getStatus(), true, true);
 
-        String body = AuditBodyUtil.readBody(req);
-
-        Map<String, String> headersMap = new HashMap();
-        Enumeration<String> headerNames = req.getHeaderNames();
-
-        while (headerNames.hasMoreElements()){
-            headersMap.put(headerNames.nextElement(), null);
+        } catch (Exception e){
+            e.printStackTrace();
+            //auditBodyAction.auditBody();
         }
 
-        headersMap.forEach((key, value) -> headersMap.put(key, req.getHeader(key)));
-
-        AuditRequestWrapper request = new AuditRequestWrapper((HttpServletRequest) servletRequest);
-        request.setBody(body);
-        request.setAuditEnable(auditEnabled);
-        request.setHeaderMap(headersMap);
-
-
-        filterChain.doFilter(servletRequest, servletResponse);
-
-        HttpServletResponse filteredResponse = (HttpServletResponse) servletResponse;
-        AuditRequestWrapper processedRequest = (AuditRequestWrapper) servletRequest;
-        auditBodyAction.auditBody(processedRequest.getAuditRequestHeaders(),
-                processedRequest.getBody(), requestUri, method,
-                filteredResponse.getStatus(),
-                true, true);
     }
 
 
