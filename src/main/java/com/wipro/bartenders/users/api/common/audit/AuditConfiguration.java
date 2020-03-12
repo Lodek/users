@@ -68,9 +68,9 @@ public class AuditConfiguration {
         return (simulated, userId, requestId, correlationId, saveAuditData) -> AuditRequestHeaders.builder()
                 .simulated(defaultIfEmpty(simulated, "false"))
                 .saveAuditData(defaultIfEmpty(saveAuditData, defaultSaveAuditData))
-                .userId(userId)
+                .userId(defaultIfEmpty(userId, "bob"))
                 .requestId(requestId)
-                .correlationId(correlationId)
+                .correlationId(defaultIfEmpty(correlationId, "0"))
                 .build();
     }
 

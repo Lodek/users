@@ -1,5 +1,6 @@
 package com.wipro.bartenders.users.api.common.audit;
 
+import org.apache.catalina.connector.ResponseFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
@@ -9,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -34,24 +34,24 @@ public class AuditRequestFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-
         try{
             AuditRequestWrapper req = new AuditRequestWrapper((HttpServletRequest) servletRequest);
             AuditRequestHeaders headers = auditRequestHeadersBuilder.build(null, null,
                 hexResourceIdGenerator.getId(req), null, null);
             req.setAuditRequestHeaders(headers);
 
-            //boolean auditEnabled = auditSupportValidator.isSupported(requestUri, method);
+            filterChain.doFilter(req, servletResponse);
 
-            filterChain.doFilter(servletRequest, servletResponse);
-
-            HttpServletResponse filteredResponse = (HttpServletResponse) servletResponse;
-            AuditRequestWrapper processedRequest = (AuditRequestWrapper) servletRequest;
-            //auditBodyAction.auditBody(processedRequest.getAuditRequestHeaders(), processedRequest.getBody(), requestUri, method, filteredResponse.getStatus(), true, true);
+            String method = req.getMethod();
+            String url = req.getRequestURI();
+            ResponseFacade facade = (ResponseFacade) servletResponse;
+            if (auditSupportValidator.isSupported(url, method)){
+                auditBodyAction.auditBody(headers, req.getBody(), url, method, facade.getStatus(), true, true);
+            }
 
         } catch (Exception e){
+            ((ResponseFacade) servletResponse).setStatus(500);
             e.printStackTrace();
-            //auditBodyAction.auditBody();
         }
 
     }

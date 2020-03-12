@@ -12,6 +12,4 @@ public class AuditRequestHeadersConstants {
     public static final String HEADER_USER_ID = "x-user";
 
     public static final String HEADER_AUDIT_ENABLED = "audit-enabled";
-
-
 }

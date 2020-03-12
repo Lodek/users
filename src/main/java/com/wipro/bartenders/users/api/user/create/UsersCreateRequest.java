@@ -1,5 +1,6 @@
 package com.wipro.bartenders.users.api.user.create;
 
+import com.wipro.bartenders.users.api.common.BaseRequest;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -8,7 +9,7 @@ import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
 @Data
-public class UsersCreateRequest {
+public class UsersCreateRequest extends BaseRequest {
 
     @NotNull
     private String userName;

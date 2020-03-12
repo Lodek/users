@@ -33,7 +33,6 @@ public class AuditResponseBodyAdvice implements ResponseBodyAdvice {
 
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest request, ServerHttpResponse response) {
-
         AuditRequestHeaders auditHeaders = toAuditRequestHeaders(request.getHeaders(), builder);
         HttpHeaders responseHeaders = response.getHeaders();
         responseHeaders.set(AuditRequestHeadersConstants.HEADER_CORRELATION_ID, auditHeaders.getCorrelationId());
@@ -41,7 +40,6 @@ public class AuditResponseBodyAdvice implements ResponseBodyAdvice {
         responseHeaders.set(AuditRequestHeadersConstants.HEADER_SAVE_AUDIT_DATA, auditHeaders.getSaveAuditData());
         responseHeaders.set(AuditRequestHeadersConstants.HEADER_SIMULATE, auditHeaders.getSimulated());
         responseHeaders.set(AuditRequestHeadersConstants.HEADER_USER_ID, auditHeaders.getUserId());
-
         return o;
     }
 }

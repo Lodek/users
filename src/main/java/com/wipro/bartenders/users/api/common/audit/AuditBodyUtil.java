@@ -49,7 +49,7 @@ public class AuditBodyUtil {
 
     public static String readBody(HttpServletRequest request) throws IOException {
         Scanner s = new Scanner(request.getInputStream());
-        return s.useDelimiter("\\A").next();
+        return s.hasNext() ? s.useDelimiter("\\A").next() : "";
     }
 
     public static JsonNode removeIgnoredFields(JsonNode json, List<String> ignoredFields){
