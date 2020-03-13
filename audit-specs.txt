@@ -16,7 +16,7 @@ Add to rest method
 
 @RequestHeader(value = ClaimRequestHeaders.HEADER_CORRELATION_ID, required = false) String correlationId,
 
-@RequestHeader(value = ClaimRequestHeaders.HEADER_NAME_USER_ID, required = false, defaultValue = "dummy"
+@RequestHeader(value = ClaimRequestHeaders.HEADER_NAME_USER_ID, required = false, defaultValue = "dummy")
 
 
 

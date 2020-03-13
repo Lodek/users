@@ -1,5 +1,6 @@
 package com.wipro.bartenders.users.api.role.create;
 
+import com.wipro.bartenders.users.api.common.audit.AuditRequestHeaders;
 import com.wipro.bartenders.users.domain.role.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ public class RolesCreateRest {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RolesCreateResponse addRole(@RequestBody @Valid RolesCreateRequest request) {
+    public RolesCreateResponse addRole(@RequestBody @Valid RolesCreateRequest request, AuditRequestHeaders headers) {
         Role role = mapper.roleFromRequest(request);
         service.addRole(role);
         return mapper.roleToResponse(role);
