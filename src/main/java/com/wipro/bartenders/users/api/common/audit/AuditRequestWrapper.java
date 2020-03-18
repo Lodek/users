@@ -12,11 +12,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
+import static com.wipro.bartenders.users.api.common.audit.AuditBodyUtil.joinHeaders;
 import static com.wipro.bartenders.users.api.common.audit.AuditBodyUtil.setOf;
 
 public class AuditRequestWrapper extends HttpServletRequestWrapper {
@@ -35,13 +33,13 @@ public class AuditRequestWrapper extends HttpServletRequestWrapper {
     public AuditRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
         this.body = AuditBodyUtil.readBody(request);
+
         this.headerMap = new HashMap<>();
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()){
             String name = headerNames.nextElement();
-            this.headerMap.put(name, request.getHeader(name));
+            this.headerMap.put(name, joinHeaders(request.getHeaders(name)));
         }
-
 
     }
 
@@ -75,7 +73,6 @@ public class AuditRequestWrapper extends HttpServletRequestWrapper {
     }
 
 
-
     @Override
     public ServletInputStream getInputStream() {
         return new AuditInputStream(this.body);
@@ -84,7 +81,6 @@ public class AuditRequestWrapper extends HttpServletRequestWrapper {
     class AuditInputStream extends ServletInputStream  {
 
         private InputStream stream;
-        private ReadListener readListener;
 
         AuditInputStream(String body){
             super();
@@ -105,7 +101,6 @@ public class AuditRequestWrapper extends HttpServletRequestWrapper {
 
         @Override
         public void setReadListener(ReadListener readListener) {
-            this.readListener = readListener;
         }
 
         @Override

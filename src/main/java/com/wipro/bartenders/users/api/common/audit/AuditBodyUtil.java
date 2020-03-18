@@ -10,12 +10,8 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Scanner;
-import java.util.Set;
 
 public class AuditBodyUtil {
 
@@ -28,6 +24,15 @@ public class AuditBodyUtil {
     public static String getHeaderValue(HttpHeaders headers, String name){
         return String.join(",", headers.get(name));
     }
+
+    public static String joinHeaders(Enumeration<String> headerEnumeration){
+        List<String> values = new ArrayList<>();
+        while (headerEnumeration.hasMoreElements()) {
+            values.add(headerEnumeration.nextElement());
+        }
+        return String.join(",", values);
+    }
+
 
     public static int getResponseStatusCode(ServerHttpResponse response){
         return response.getStatusCode().value();
